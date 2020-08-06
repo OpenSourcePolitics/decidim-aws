@@ -12,7 +12,7 @@ gem "decidim-initiatives", git: "https://github.com/OpenSourcePolitics/decidim.g
 # gem "decidim-consultations", path: "../decidim"
 # gem "decidim-initiatives", path: "../decidim"
 
-gem "decidim-term_customizer", git: "https://github.com/OpenSourcePolitics/decidim-module-term_customizer.git", branch: "0.dev"
+gem "decidim-term_customizer", git: "https://github.com/Quentinchampenois/decidim-module-term_customizer.git", branch: "fix/rescue_argumenterror"
 
 # gem "omniauth-decidim", git: "https://github.com/OpenSourcePolitics/decidim.git"
 # gem "decidim-omniauth_extras", git: "https://github.com/OpenSourcePolitics/decidim.git"
