@@ -11,7 +11,7 @@ module OmniAuth
 
       info do
         {
-          name: "#{user_info.given_name} #{find_name}".strip,
+          name: "#{user_info.given_name&.split(" ")&.first} #{find_name}".strip,
           email: user_info.email,
           nickname: ::Decidim::UserBaseEntity.nicknamize(find_name),
           first_name: user_info.given_name&.strip,
