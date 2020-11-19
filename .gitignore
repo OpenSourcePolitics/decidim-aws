@@ -25,10 +25,13 @@
 /yarn-error.log
 
 /public/assets
+/public/certs
+/public/wsdl
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+.env
 
 # Ignore public uploads
 public/uploads
@@ -40,3 +43,11 @@ public/uploads
 !.elasticbeanstalk/*.global.yml
 
 **/*/wip
+db/migrate-bkp*
+
+
+.DS_Store
+.idea
+flamegraph*
+
+public/reports

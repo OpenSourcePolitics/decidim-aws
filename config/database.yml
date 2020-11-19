@@ -22,15 +22,15 @@ default: &default
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  database: <%= ENV['RDS_DB_NAME'] %>
-  username: <%= ENV['RDS_USERNAME'] %>
-  password: <%= ENV['RDS_PASSWORD'] %>
-  host: <%= ENV['RDS_HOSTNAME'] %>
-  port: <%= ENV['RDS_PORT'] %>
+  database: <%= ENV['RDS_DB_NAME'] { "decidim" } %>
+  username: <%= ENV['RDS_USERNAME'] { "" } %>
+  password: <%= ENV['RDS_PASSWORD'] { "" } %>
+  host: <%= ENV['RDS_HOSTNAME'] { "localhost" } %>
+  port: <%= ENV['RDS_PORT'] { "5432" } %>
 
 development:
   <<: *default
-  database: decidim-aws_development
+  # database: decidim-aws_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
