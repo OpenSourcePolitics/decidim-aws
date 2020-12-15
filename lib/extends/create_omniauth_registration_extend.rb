@@ -71,7 +71,7 @@ module CreateOmniauthRegistrationExtend
           @user.skip_confirmation! if !@user.confirmed? && @user.email == verified_email
         else
           if form.email != verified_email
-            @user.email = verified_email
+            @user.email = verified_email.blank? ? form.email : verified_email
             @user.unconfirmed_email = form.email
           else
             @user.email = verified_email
