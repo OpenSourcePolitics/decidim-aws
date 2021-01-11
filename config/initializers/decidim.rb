@@ -130,6 +130,34 @@ Decidim.configure do |config|
   #   api_key: Rails.application.secrets.etherpad[:api_key],
   #   api_version: Rails.application.secrets.etherpad[:api_version]
   # }
+
+  # Machine Translation Configuration
+  #
+  # Enable machine translations
+  config.enable_machine_translations = false
+  #
+  # If you want to enable machine translation you can create your own service
+  # to interact with third party service to translate the user content.
+  #
+  # An example class would be something like:
+  #
+  # class MyTranslationService
+  #   attr_reader :text, :original_locale, :target_locale
+  #
+  #   def initialize(text, original_locale, target_locale)
+  #     @text = text
+  #     @original_locale = original_locale
+  #     @target_locale = target_locale
+  #   end
+  #
+  #   def translate
+  #     # Actual code to translate the text
+  #   end
+  # end
+  #
+  config.machine_translation_service = 'Decidim::Dev::DummyTranslator'
+
+
 end
 
 Rails.application.config.i18n.available_locales = Decidim.available_locales

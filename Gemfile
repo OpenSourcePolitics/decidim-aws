@@ -4,9 +4,9 @@ source "https://rubygems.org"
 
 ruby RUBY_VERSION
 
-gem "decidim", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "alt/petition_merge"
-# gem "decidim-consultations", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "alt/petition_merge"
-gem "decidim-initiatives", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "alt/petition_merge"
+gem "decidim", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "alt/petition-0.24.0.dev"
+# gem "decidim-consultations", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "alt/petition-0.24.0.dev"
+gem "decidim-initiatives", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "alt/petition-0.24.0.dev"
 
 # gem "decidim", path: "../decidim"
 # gem "decidim-consultations", path: "../decidim"
@@ -28,7 +28,7 @@ gem "bootsnap"
 gem "puma"
 gem "uglifier"
 
-gem "faker", "~> 1.9"
+gem "faker", "~> 2.14"
 
 # Avoid wicked_pdf require error
 gem "wicked_pdf"
@@ -36,8 +36,9 @@ gem "wkhtmltopdf-binary"
 
 gem 'activerecord-session_store'
 
+gem "rack-oauth2", "~> 1.16"
 # gem "omniauth-oauth2", ">= 1.4.0", "< 2.0"
-gem "omniauth_openid_connect", "0.3.1"
+gem "omniauth_openid_connect", "~> 0.3.5"
 # gem "omniauth-saml", "~> 1.10"
 
 gem 'rubyzip', require: 'zip'
@@ -45,7 +46,7 @@ gem 'rubyzip', require: 'zip'
 group :development, :test do
   gem "byebug", "~> 11.0", platform: :mri
 
-  gem "decidim-dev", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "alt/petition_merge"
+  gem "decidim-dev", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "alt/petition-0.24.0.dev"
 
   # gem "decidim-dev", path: "../decidim"
 end
