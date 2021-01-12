@@ -24,9 +24,10 @@ gem "decidim-term_customizer", git: "https://github.com/OpenSourcePolitics/decid
 
 # gem "decidim-blazer", path: "../decidim-module-blazer"
 
-gem "bootsnap"
-gem "puma"
-gem "uglifier"
+gem "bootsnap", "~> 1.4"
+
+gem "puma", ">= 4.3.5"
+gem "uglifier", "~> 4.1"
 
 gem "faker", "~> 2.14"
 
@@ -43,11 +44,17 @@ gem "omniauth_openid_connect", "~> 0.3.5"
 
 gem 'rubyzip', require: 'zip'
 
+gem "dotenv-rails", "~> 2.7"
+
 group :development, :test do
   gem "byebug", "~> 11.0", platform: :mri
 
-  gem "decidim-dev", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "alt/petition-0.24.0.dev"
+  # Use latest simplecov from master until next version of simplecov is
+  # released (greather than 0.18.5)
+  # See https://github.com/decidim/decidim/issues/6230
+  gem "simplecov", "~> 0.19.0"
 
+  gem "decidim-dev", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "alt/petition-0.24.0.dev"
   # gem "decidim-dev", path: "../decidim"
 end
 
@@ -57,6 +64,12 @@ group :development do
   gem "spring", "~> 2.0"
   gem "spring-watcher-listen", "~> 2.0"
   gem "web-console", "~> 3.5"
+  # Profiling gems
+  gem "bullet"
+  gem "flamegraph"
+  gem "memory_profiler"
+  gem "rack-mini-profiler", require: false
+  gem "stackprof"
 end
 
 group :production do
@@ -67,5 +80,3 @@ group :production do
   gem "dalli-elasticache"
   gem "newrelic_rpm"
 end
-
-gem "dotenv-rails", "~> 2.7"
