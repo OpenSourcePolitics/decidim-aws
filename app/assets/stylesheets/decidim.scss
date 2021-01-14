@@ -325,7 +325,7 @@ div[data-set="nav-holder"] {
     }
   }
 
-  button {
+  button[type="submit"] {
     padding: 0 .5rem;
     border: none;
     border-left: 1px solid $official_color_blue;
@@ -489,6 +489,16 @@ div[data-set="nav-holder"] {
 
 // ------------------------------------------------------------------
 // SIGNUP / SIGNIN / PROFILE
+
+.register-form fieldset {
+  border: none;
+
+  label > [type='checkbox'] {
+    margin-bottom: 0;
+    position: relative;
+    top: 2px;
+  }
+}
 
 .button--social {
   margin: 0 auto;
@@ -690,4 +700,8 @@ main.anonymous {
 
 .initiative-description {
   white-space: pre-line;
+}
+
+.column.actions {
+  float: none;
 }
