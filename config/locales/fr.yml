@@ -1,5 +1,7 @@
 ---
 fr:
+  forms:
+    required_explanation: "* Les champs obligatoires sont marqués d'un astérisque"
   activemodel:
     attributes:
       attachment:

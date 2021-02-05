@@ -250,6 +250,10 @@ fr:
             à l’organisation.</p>\n"
           title: Comment fonctionnent les pétitions ?
     initiatives:
+      edit:
+        back: Retour
+        title: Editer
+        update: Mettre à jour
       actions:
         answer: Réponse
       admin:
@@ -409,11 +413,12 @@ fr:
           back_to_initiatives: Retour à l'index des pétitions
           callout_text: Bravo ! Votre pétition a été créée avec succès.
           confirm: Confirmer
-          edit_my_initiative: Modifier mon pétition
+          edit_my_initiative: Modifier ma pétition
           go_to_my_initiatives: Consulter mes pétitions
           more_information: "(Plus d'informations)"
           send_my_initiative: Envoyer pour validation
         finish_help:
+          publish_helper_text: N'oubliez pas que pour que votre pétition soit publiée, vous devez compléter les informations requises et <strong>l'envoyer à la validation technique</strong> pour qu'un administrateur puisse l'examiner.
           access_reminder: Rappelez-vous que vous serez toujours en mesure d'accéder
             à vos pétitions via le menu utilisateur.
           help_for_organizations: Si vous êtes une association, vous devrez télécharger
@@ -462,7 +467,7 @@ fr:
           compare_help: Si l'une des pétitions suivantes est similaire à la vôtre,
             nous vous encourageons à l'appuyer. Votre proposition aura ainsi plus
             de possibilités de se réaliser.
-          continue: Mon pétition est différente
+          continue: Ma pétition est différente
           more_information: "(Plus d'informations)"
       events:
         create_initiative_event:
@@ -519,6 +524,14 @@ fr:
           invalid: Le numéro de téléphone est invalide ou en attente d'autorisation.
             S'il vous plaît, vérifiez vos autorisations.
       initiatives:
+        approve: Accepter
+        committee_members:
+          approve: Accepter
+          confirm_revoke: Êtes-vous sûr(e) ?
+          invite_to_committee_help: Partagez ce lien pour inviter d'autres utilisateurs au Comité de promotion
+          no_members_yet: Il n'y a pas encore de membres dans le Comité de promotion
+          revoke: Révoquer
+          title: Membres du Comité de promotion
         author:
           deleted: Supprimé
           identifier: 'Identifiant: <b>N°%{identifier}</b>'
