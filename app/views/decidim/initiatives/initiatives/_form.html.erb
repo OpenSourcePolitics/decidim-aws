@@ -17,7 +17,9 @@
   %>
 </div>
 
-<% unless single_initiative_type? %>
+<% if single_initiative_type? %>
+  <%= form.hidden_field :type_id, value: initiative_type_options.first.last %>
+<% else %>
   <div class="field">
     <%= form.select :type_id,
                     initiative_type_options,
