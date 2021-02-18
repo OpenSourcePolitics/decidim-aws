@@ -5,12 +5,10 @@ module DestroyAccountExtend
   extend ActiveSupport::Concern
 
   included do
-
     def call
       return broadcast(:invalid) unless @form.valid?
 
       Decidim::User.transaction do
-
         manage_user_initiatives
         destroy_user_account!
         destroy_user_authorizations
