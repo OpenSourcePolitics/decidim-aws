@@ -75,7 +75,7 @@
             </div>
 
             <div class="field">
-              <%= f.text_field :postal_code %>
+              <%= f.text_field :postal_code, pattern: "^[0-9]{5}$", min: 5, max: 5 %>
             </div>
 
             <div class="field">
