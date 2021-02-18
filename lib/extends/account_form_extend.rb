@@ -22,7 +22,6 @@ module AccountFormExtend
     validates :avatar, file_size: { less_than_or_equal_to: ->(_record) { Decidim.maximum_avatar_size } }
     validates :custom_agreement, acceptance: true
     validates :number_and_street, :city, :country, :postal_code, presence: true
-    validates_format_of :postal_code, with: /\A\d{5}\Z/
 
     validate :unique_email
   end
