@@ -1,6 +1,23 @@
 class UpdatePostalCodeRegistration < ActiveRecord::Migration[5.2]
   def up
-    users_with_postal_code&.each do |user|
+
+    affected_users = users_with_postal_code
+    if affected_users.blank?
+      puts "Update postal code migration : No users affected.
+End of migration"
+      return
+
+    else
+      puts "#{affected_users.count} users will be affected, are you sure ? [y/n]"
+      choice = $stdin.gets.chomp
+
+      if choice.downcase != "y"
+        puts "Migration aborted"
+        return
+      end
+    end
+
+    affected_users&.each do |user|
       next unless user[:address].present? && user[:address]['postal_code'].present?
 
       current_postal_code = user[:address]["postal_code"]
