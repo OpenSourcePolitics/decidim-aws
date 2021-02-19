@@ -3,18 +3,23 @@
 class UpdatePostalCodeRegistration < ActiveRecord::Migration[5.2]
   def up
     affected_users = users_with_postal_code
+
+    unless affected_users.present? && affected_users.respond_to?(:each)
+      puts 'No users affected by migration, migration aborted !'
+      return
+    end
+
     updated_users = 0
+    affected_users.each do |user|
+      next unless user[:address].present?
+      next unless user[:address]['postal_code'].present?
 
-    affected_users&.each do |user|
-      next unless user[:address].present? && user[:address]['postal_code'].present?
+      current_postal_code = user[:address]['postal_code']
+      next unless postal_code_need_update? current_postal_code
 
-      current_postal_code = user[:address]["postal_code"]
-
-      if postal_code_need_update? current_postal_code
-        user[:address]["postal_code"] = reformat_postal_code current_postal_code
-        user.save!
-        updated_users += 1
-      end
+      user[:address]['postal_code'] = reformat_postal_code current_postal_code
+      user.save!
+      updated_users += 1
     end
 
     puts "#{updated_users} users updated"
@@ -35,7 +40,9 @@ class UpdatePostalCodeRegistration < ActiveRecord::Migration[5.2]
   def reformat_postal_code(postal_code)
     postal_code = postal_code.to_s if postal_code.is_a? Integer
 
-    return "0#{postal_code}" if postal_code.length == 4
+    if postal_code.length == 4 && postal_code.respond_to?(:to_s)
+      return "0#{postal_code}"
+    end
 
     postal_code
   end
