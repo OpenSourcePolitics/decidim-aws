@@ -16,7 +16,7 @@ module OmniauthRegistrationFormExtend
     jsonb_attribute :address, [
         [:number_and_street, String],
         [:address_complement, String],
-        [:postal_code, Integer],
+        [:postal_code, String],
         [:city, String],
         [:country, String]
     ]
