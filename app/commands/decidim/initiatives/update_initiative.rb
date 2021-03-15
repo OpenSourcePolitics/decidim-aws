@@ -26,7 +26,6 @@ module Decidim
       #
       # Returns nothing.
       def call
-        # byebug
         return broadcast(:invalid) if form.invalid?
 
         if process_attachments?
@@ -35,8 +34,11 @@ module Decidim
           build_attachments
           return broadcast(:invalid) if attachments_invalid?
         end
-        # byebug
-        @initiative = Decidim.traceability.update!(initiative,current_user,attributes)
+        @initiative = Decidim.traceability.update!(
+            initiative,
+            current_user,
+            attributes
+        )
 
         create_attachments if process_attachments?
         broadcast(:ok, initiative)
