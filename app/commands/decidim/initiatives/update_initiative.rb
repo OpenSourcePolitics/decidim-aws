@@ -64,7 +64,6 @@ module Decidim
 
         if initiative.created?
           attrs[:signature_end_date] = form.signature_end_date if initiative.custom_signature_end_date_enabled?
-          attrs[:decidim_area_id] = form.area_id if initiative.area_enabled?
         end
 
         attrs
