@@ -12,15 +12,6 @@
         </div>
       </div>
     </div>
-    <%= form.check_boxes_tree :state, filter_states_values, legend_title: t(".state") %>
-    <%= form.areas_select :area_id,
-                          current_organization.areas,
-                          legend_title: t(".area"),
-                          label: false,
-                          include_blank: t(".select_an_area"),
-                          selected: search.area_id.is_a?(Array) ? search.area_id[0] : search.area_id %>
-    <%= form.check_boxes_tree :custom_state, filter_sorts_values, legend_title: t(".sort") %>
-
     <% if current_user && current_user.identities.collect(&:provider).include?("france_connect_profile") %>
       <%= form.collection_radio_buttons :author,
                                         [["any", t(".any")], ["myself", t(".myself")]],
@@ -32,6 +23,14 @@
     <% else %>
       <%= form.hidden_field :author, value: "any" %>
     <% end %>
+    <%= form.check_boxes_tree :state, filter_states_values, legend_title: t(".state") %>
+    <%= form.areas_select :area_id,
+                          current_organization.areas,
+                          legend_title: t(".area"),
+                          label: false,
+                          include_blank: t(".select_an_area"),
+                          selected: search.area_id.is_a?(Array) ? search.area_id[0] : search.area_id %>
+    <%= form.check_boxes_tree :custom_state, filter_sorts_values, legend_title: t(".sort") %>
 
     <%= form.check_boxes_tree :scope_id, filter_scopes_values, legend_title: t(".scope") %>
 
