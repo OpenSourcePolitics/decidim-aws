@@ -641,8 +641,8 @@ fr:
         new_initiative: Nouvelle pétition
       pages:
         home:
-          highlighted_initiatives:
-            active_initiatives: Pétitions actives
+          answered_initiatives:
+            active_initiatives: Pétitions ayant reçu un sort
             see_all_initiatives: Voir toutes les pétitions
       show:
         badge_name:
