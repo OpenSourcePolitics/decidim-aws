@@ -18,6 +18,11 @@ fr:
     models:
       decidim/attachment_created_event: Pièce jointe
   decidim:
+    shared:
+      version_author:
+        profile: Compte utilisateur supprimé
+    profile:
+      deleted: Compte utilisateur supprimé
     account:
       show:
         change_address: Modifier mon adresse
