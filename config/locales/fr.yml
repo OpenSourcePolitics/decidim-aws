@@ -110,6 +110,9 @@ fr:
             email_subject: decidim.event.initiatives.admin.support_threshold_reached.email_subject
             notification_title: decidim.event.initiatives.admin.support_threshold_reached.notification_title
     initiatives:
+      application_helper:
+        filter_state_values:
+          archived: Archivée
       update:
         error: fr.decidim.initiatives.update.error
         success: fr.decidim.initiatives.update.success
