@@ -18,7 +18,11 @@ module Decidim
                         TreePoint.new("accepted", t("decidim.initiatives.application_helper.filter_state_values.accepted")),
                         TreePoint.new("rejected", t("decidim.initiatives.application_helper.filter_state_values.rejected"))
                     ]
-                )
+                ),
+                TreeNode.new(
+                    TreePoint.new("archived", t("decidim.initiatives.application_helper.filter_state_values.archived")),
+                    archives_categories_value
+                ),
             ]
         )
       end
@@ -111,6 +115,14 @@ module Decidim
               end
           )
         end
+      end
+
+      def archives_categories_value
+        archive_categories.map { |archive_category| TreePoint.new(archive_category.name, archive_category.name) }
+      end
+
+      def archive_categories
+        @archive_categories ||= Decidim::InitiativesArchiveCategory.where(organization: current_organization)
       end
     end
   end
