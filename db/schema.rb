@@ -10,67 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_18_135141) do
+ActiveRecord::Schema.define(version: 2021_06_28_110058) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "ltree"
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
-
-  create_table "blazer_audits", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "query_id"
-    t.text "statement"
-    t.string "data_source"
-    t.datetime "created_at"
-    t.index ["query_id"], name: "index_blazer_audits_on_query_id"
-    t.index ["user_id"], name: "index_blazer_audits_on_user_id"
-  end
-
-  create_table "blazer_checks", force: :cascade do |t|
-    t.bigint "creator_id"
-    t.bigint "query_id"
-    t.string "state"
-    t.string "schedule"
-    t.text "emails"
-    t.text "slack_channels"
-    t.string "check_type"
-    t.text "message"
-    t.datetime "last_run_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["creator_id"], name: "index_blazer_checks_on_creator_id"
-    t.index ["query_id"], name: "index_blazer_checks_on_query_id"
-  end
-
-  create_table "blazer_dashboard_queries", force: :cascade do |t|
-    t.bigint "dashboard_id"
-    t.bigint "query_id"
-    t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["dashboard_id"], name: "index_blazer_dashboard_queries_on_dashboard_id"
-    t.index ["query_id"], name: "index_blazer_dashboard_queries_on_query_id"
-  end
-
-  create_table "blazer_dashboards", force: :cascade do |t|
-    t.bigint "creator_id"
-    t.text "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["creator_id"], name: "index_blazer_dashboards_on_creator_id"
-  end
-
-  create_table "blazer_queries", force: :cascade do |t|
-    t.bigint "creator_id"
-    t.string "name"
-    t.text "description"
-    t.text "statement"
-    t.string "data_source"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["creator_id"], name: "index_blazer_queries_on_creator_id"
-  end
 
   create_table "decidim_accountability_results", id: :serial, force: :cascade do |t|
     t.jsonb "title"
@@ -719,15 +664,25 @@ ActiveRecord::Schema.define(version: 2021_02_18_135141) do
     t.jsonb "offline_votes", default: {"total"=>0}
     t.date "answer_date"
     t.bigint "decidim_area_id"
+    t.bigint "decidim_initiatives_archive_categories_id"
     t.index "md5((description)::text)", name: "decidim_initiatives_description_search"
     t.index ["answered_at"], name: "index_decidim_initiatives_on_answered_at"
     t.index ["decidim_area_id"], name: "index_decidim_initiatives_on_decidim_area_id"
     t.index ["decidim_author_id", "decidim_author_type"], name: "index_decidim_initiatives_on_decidim_author"
+    t.index ["decidim_initiatives_archive_categories_id"], name: "index_decidim_initiatives_on_initiatives_archive_category_id"
     t.index ["decidim_organization_id"], name: "index_decidim_initiatives_on_decidim_organization_id"
     t.index ["decidim_user_group_id"], name: "index_decidim_initiatives_on_decidim_user_group_id"
     t.index ["published_at"], name: "index_decidim_initiatives_on_published_at"
     t.index ["scoped_type_id"], name: "index_decidim_initiatives_on_scoped_type_id"
     t.index ["title"], name: "decidim_initiatives_title_search"
+  end
+
+  create_table "decidim_initiatives_archive_categories", force: :cascade do |t|
+    t.string "name"
+    t.bigint "decidim_organization_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["decidim_organization_id"], name: "index_archive_categories_on_decidim_organization_id"
   end
 
   create_table "decidim_initiatives_committee_members", force: :cascade do |t|
@@ -765,13 +720,14 @@ ActiveRecord::Schema.define(version: 2021_02_18_135141) do
     t.string "document_number_authorization_handler"
     t.boolean "undo_online_signatures_enabled", default: true, null: false
     t.boolean "promoting_committee_enabled", default: true, null: false
-    t.integer "signature_type", default: 0, null: false
     t.boolean "comments_enabled", default: true, null: false
     t.boolean "child_scope_threshold_enabled", default: false, null: false
     t.boolean "only_global_scope_enabled", default: false, null: false
     t.boolean "custom_signature_end_date_enabled", default: false, null: false
     t.boolean "area_enabled", default: false, null: false
     t.boolean "attachments_enabled", default: false, null: false
+    t.date "global_signature_end_date"
+    t.integer "signature_type", default: 0, null: false
     t.index ["decidim_organization_id"], name: "index_decidim_initiative_types_on_decidim_organization_id"
   end
 
@@ -1030,7 +986,6 @@ ActiveRecord::Schema.define(version: 2021_02_18_135141) do
     t.jsonb "colors", default: {}
     t.boolean "force_users_to_authenticate_before_access_organization", default: false
     t.jsonb "omniauth_settings"
-    t.string "online_signature_types", default: [], array: true
     t.boolean "rich_text_editor_in_public_views", default: false
     t.jsonb "admin_terms_of_use_body"
     t.string "time_zone", limit: 255, default: "UTC"
@@ -1556,7 +1511,6 @@ ActiveRecord::Schema.define(version: 2021_02_18_135141) do
     t.string "session_token"
     t.string "direct_message_types", default: "all", null: false
     t.string "full_address"
-    t.boolean "custom_agreement"
     t.datetime "custom_agreement_at"
     t.jsonb "address", default: {}, null: false
     t.index ["confirmation_token"], name: "index_decidim_users_on_confirmation_token", unique: true
@@ -1659,6 +1613,8 @@ ActiveRecord::Schema.define(version: 2021_02_18_135141) do
   add_foreign_key "decidim_consultations_responses", "decidim_consultations_questions", column: "decidim_consultations_questions_id"
   add_foreign_key "decidim_consultations_votes", "decidim_consultations_responses"
   add_foreign_key "decidim_identities", "decidim_organizations"
+  add_foreign_key "decidim_initiatives", "decidim_initiatives_archive_categories", column: "decidim_initiatives_archive_categories_id"
+  add_foreign_key "decidim_initiatives_archive_categories", "decidim_organizations"
   add_foreign_key "decidim_newsletters", "decidim_users", column: "author_id"
   add_foreign_key "decidim_participatory_process_steps", "decidim_participatory_processes"
   add_foreign_key "decidim_participatory_processes", "decidim_organizations"
