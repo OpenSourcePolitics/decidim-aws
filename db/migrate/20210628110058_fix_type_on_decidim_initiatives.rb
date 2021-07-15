@@ -18,6 +18,8 @@ class FixTypeOnDecidimInitiatives < ActiveRecord::Migration[5.2]
 
     if defined?(Decidim::Initiatives::InitiativesType) && defined?(Decidim::Initiatives::InitiativesType.signature_type)
       Decidim::Initiatives::InitiativesType.find_each do |type|
+        next if type.signature_type.present?
+
         type.signature_type = if type.online_signature_enabled && face_to_face_voting_allowed
                                 :any
                               elsif type.online_signature_enabled && !face_to_face_voting_allowed
