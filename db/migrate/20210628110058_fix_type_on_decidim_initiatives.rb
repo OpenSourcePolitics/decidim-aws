@@ -4,7 +4,6 @@ class FixTypeOnDecidimInitiatives < ActiveRecord::Migration[5.2]
   end
 
   def change
-
     # This flag says when mixed and face-to-face voting methods
     # are allowed. If set to false, only online voting will be
     # allowed
