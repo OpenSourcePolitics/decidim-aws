@@ -98,7 +98,7 @@ module Decidim
       end
 
       def uniq_vote_scopes
-        return 0 if initiative.votes.blank?
+        return "n/a" if initiative.votes.blank? || initiative.votes.size < min_vote_scopes_to_calculate
 
         initiative_votes_scopes = []
         initiative.votes.map(&:decrypted_metadata).each do |metadata|
@@ -115,6 +115,10 @@ module Decidim
         return "" unless initiative.archived?
 
         Decidim::InitiativesArchiveCategory.find(initiative&.decidim_initiatives_archive_categories_id)&.name
+      end
+
+      def min_vote_scopes_to_calculate
+        500000
       end
     end
   end
