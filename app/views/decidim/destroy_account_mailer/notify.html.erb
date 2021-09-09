@@ -4,11 +4,11 @@
   <%= t(".destroy_account_html") %>
 </p>
 
-<p>
+<ul>
   <% @initiatives.each do |initiative| %>
-    - <%= initiative.id %> - <%= translated_attribute(initiative.title) %> - <%= I18n.t(initiative.state, scope: "decidim.initiatives.state") %> - <%= link_to I18n.t("manage"), decidim_admin_initiatives.edit_initiative_url(initiative, host: @organization.host) %>
+    <li><%= initiative.id %> - <%= translated_attribute(initiative.title) %> - <%= I18n.t(initiative.state, scope: "decidim.initiatives.state") %> - <%= link_to I18n.t("manage"), decidim_admin_initiatives.edit_initiative_url(initiative, host: @organization.host) %></li>
   <% end %>
-</p>
+</ul>
 
 <p>
   <%= t(".destroy_account_explanation") %>
