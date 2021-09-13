@@ -25,7 +25,7 @@ module DestroyAccountExtend
 
     def notify_admins
       organization_admins.each do |admin|
-        Decidim::DestroyAccountMailer.notify(admin).deliver_later
+        Decidim::DestroyAccountMailer.notify(admin, @user).deliver_later
       end
     end
 

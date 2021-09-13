@@ -1,5 +1,6 @@
 ---
 fr:
+  manage: Gérer
   activemodel:
     attributes:
       attachment:

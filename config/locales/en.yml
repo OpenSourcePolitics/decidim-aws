@@ -30,6 +30,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  manage: Manage
   decidim:
     shared:
       version_author:
