@@ -40,6 +40,7 @@ gem "letter_opener_web", "~> 1.3"
 
 # gem "omniauth-oauth2", ">= 1.4.0", "< 2.0"
 gem "omniauth_openid_connect", "0.3.1"
+gem "openid_connect", "~> 1.3"
 # gem "omniauth-saml", "~> 1.10"
 
 gem 'rubyzip', require: 'zip'
