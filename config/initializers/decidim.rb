@@ -130,8 +130,6 @@ Decidim.configure do |config|
   #   api_key: Rails.application.secrets.etherpad[:api_key],
   #   api_version: Rails.application.secrets.etherpad[:api_version]
   # }
-
-  config.default_export_encoding = "Windows-1252"
 end
 
 Rails.application.config.i18n.available_locales = Decidim.available_locales
