@@ -27,5 +27,9 @@ module DecidimAws
     if Rails.application.secrets.dig(:asset, :host).present?
       config.action_mailer.asset_host = Rails.application.secrets.dig(:asset, :host)
     end
+
+    initializer "cookie store", after: "Expire sessions" do
+      Rails.application.config.session_store :cookie_store, :key => '_decidim_session', expire_after: Decidim.config.expire_session_after
+    end
   end
 end
