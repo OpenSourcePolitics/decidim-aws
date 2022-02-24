@@ -6,7 +6,7 @@ ruby RUBY_VERSION
 
 gem "decidim", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "feature/counter_cache"
 # gem "decidim-consultations", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "optimization/alt_petition_merge"
-gem "decidim-initiatives", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "optimization/alt_petition_merge"
+gem "decidim-initiatives", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "feature/counter_cache"
 
 # gem "decidim", path: "../decidim"
 # gem "decidim-consultations", path: "../decidim"
