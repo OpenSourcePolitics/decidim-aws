@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby RUBY_VERSION
 
-gem "decidim", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "optimization/alt_petition_merge"
+gem "decidim", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "feature/counter_cache"
 # gem "decidim-consultations", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "optimization/alt_petition_merge"
 gem "decidim-initiatives", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "optimization/alt_petition_merge"
 
@@ -48,7 +48,7 @@ gem 'rubyzip', require: 'zip'
 group :development, :test do
   gem "byebug", "~> 11.0", platform: :mri
 
-  gem "decidim-dev", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "optimization/alt_petition_merge"
+  gem "decidim-dev", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "feature/counter_cache"
 
   # gem "decidim-dev", path: "../decidim"
 end
