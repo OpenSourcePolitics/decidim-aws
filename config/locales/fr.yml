@@ -1,6 +1,5 @@
 ---
 fr:
-  manage: Gérer
   activemodel:
     attributes:
       attachment:
@@ -19,11 +18,6 @@ fr:
     models:
       decidim/attachment_created_event: Pièce jointe
   decidim:
-    shared:
-      version_author:
-        profile: Compte utilisateur supprimé
-    profile:
-      deleted: Compte utilisateur supprimé
     account:
       show:
         change_address: Modifier mon adresse
@@ -114,6 +108,22 @@ fr:
       application_helper:
         filter_state_values:
           archived: Archivée
+      initiatives:
+        show:
+          help_section: "<p>La plateforme des pétitions de l'Assemblée nationale permet
+            aux citoyens d'adresser des pétitions à l'Assemblée nationale et de signer
+            des pétitions déjà déposées.</p><p>Chaque pétition est attribuée à l'une
+            des huit commissions permanentes de l'Assemblée nationale, en fonction
+            de la thématique qu'elle aborde. Les pétitions ayant recueilli au moins
+            100 000 signatures sont mises en ligne sur le site de l'Assemblée nationale
+            pour plus de visibilité.</p><p>Après attribution de la pétition à une
+            commission, les députés de la commission désignent un député-rapporteur
+            qui propose ensuite soit d'examiner le texte au cours d'un débat faisant
+            l'objet d'un rapport parlementaire, soit de classer la pétition. </p><p>La
+            Conférence des présidents de l'Assemblée nationale peut également décider
+            d'organiser un débat en séance publique sur une pétition ayant recueilli
+            au moins 500 000 signatures, issues d'au moins 30 départements ou collectivités
+            d'outre-mer. </p>"
       update:
         error: fr.decidim.initiatives.update.error
         success: fr.decidim.initiatives.update.success
@@ -144,6 +154,11 @@ fr:
           modal_button: Refuser les conditions d'utilisation
           modal_close: Fermer la fenêtre
           modal_title: Refusez-vous vraiment les conditions d'utilisation ?
+    profile:
+      deleted: Compte utilisateur supprimé
+    shared:
+      version_author:
+        profile: Compte utilisateur supprimé
     system:
       organizations:
         omniauth_settings:
@@ -203,3 +218,4 @@ fr:
       user_profile:
         authorizations: Voir les autorisations associées à votre compte
         back_to_account: Retour à votre compte
+  manage: Gérer

@@ -1,0 +1,104 @@
+<% add_decidim_meta_tags({
+                           image_url: current_initiative.type.banner_image.url,
+                           description: translated_attribute(current_initiative.description),
+                           title: translated_attribute(current_initiative.title),
+                           url: initiative_url(current_initiative.id),
+                           twitter_handler: current_organization.twitter_handler
+                         }) %>
+
+<%
+  edit_link(
+    resource_locator(current_participatory_space).edit,
+    :update,
+    :initiative,
+    initiative: current_participatory_space
+  )
+%>
+
+<div class="row collapse">
+  <% cache do %>
+    <%= render partial: "decidim/shared/floating_help", locals: { content: raw(t(".help_section")), id: 999 } %>
+  <% end %>
+</div>
+
+<% add_decidim_page_title(translated_attribute(current_initiative.title)) %>
+<% provide :meta_image_url, current_initiative.type.banner_image.url %>
+<div class="row initiative">
+  <div class="columns section view-side mediumlarge-4 mediumlarge-push-8 large-3 large-push-9">
+    <% if can_be_interacted_with?(current_initiative) %>
+      <div class="card text-center">
+        <div class="card__content">
+          <%= render partial: "decidim/initiatives/initiatives/progress_bar" %>
+          <% if current_initiative.votes_enabled? && !current_initiative.classified? %>
+            <div id="initiative-<%= current_initiative.id %>-vote-cabin">
+              <%= render partial: "decidim/initiatives/initiatives/vote_cabin", locals: { initiative: current_initiative } %>
+            </div>
+          <% end %>
+          <%= render partial: "decidim/initiatives/initiatives/interactions" %>
+        </div>
+      </div>
+    <% elsif allowed_to? :edit, :initiative, initiative: current_initiative %>
+      <div class="card text-center">
+        <div class="card__content">
+          <%= link_to t(".edit"),
+                      edit_initiative_path(current_initiative),
+                      class: "button expanded" %>
+          <%= render partial: "decidim/initiatives/initiatives/send_to_technical_validation", locals: {
+            title: t(".send_to_technical_validation"),
+            confirm: t(".confirm")
+          } %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if current_user %>
+      <div class="card text-center follow-section">
+        <div class="card__content">
+          <%= cell "decidim/follow_button", current_participatory_space, inline: false, large: true %>
+          <small><%= t(".follow_description") %></small>
+        </div>
+      </div>
+    <% end %>
+    <% if current_initiative.votes_enabled_state? || current_initiative.accepted? %>
+      <%= render partial: "decidim/shared/share_modal" %>
+      <%= embed_modal_for initiative_initiative_widget_url(current_initiative, format: :js) %>
+    <% end %>
+  </div>
+
+  <div class="columns mediumlarge-8 mediumlarge-pull-4">
+    <div class="section">
+      <div class="row column">
+        <%= render partial: "decidim/initiatives/initiatives/archived_header" if current_initiative.archived? %>
+        <br>
+        <h2 class="heading2" <%= "id=#{translate_helper_for(element: :title, model: current_initiative)}" %>>
+          <%= translated_attribute(current_initiative.title) %>
+        </h2>
+        <%= render partial: "decidim/initiatives/initiatives/author", locals: { initiative: current_initiative } %>
+        <%= translate_button_helper_for(
+              title: translated_attribute(current_initiative.title),
+              body: translated_attribute(current_initiative.description),
+              model: current_initiative,
+              options: { class: "hide-for-small-only" }
+            ) %>
+      </div>
+      <br>
+      <div class="row column">
+        <%= render partial: "decidim/initiatives/initiatives/initiative_badge", locals: { initiative: current_initiative } %>
+        <div id="<%= translate_helper_for(element: :body, model: current_initiative) %>">
+          <%= decidim_sanitize simple_format(translated_attribute(current_initiative.description)) %>
+          <%= translate_button_helper_for(
+                title: translated_attribute(current_initiative.title),
+                body: translated_attribute(current_initiative.description),
+                model: current_initiative,
+                options: { class: "show-for-small-only" }
+              ) %>
+        </div>
+        <%= render partial: "decidim/initiatives/initiatives/tags", locals: { resource: current_initiative } %>
+      </div>
+
+      <%= render partial: "decidim/initiatives/initiatives/result", locals: { initiative: current_initiative } %>
+    </div>
+
+    <%= attachments_for current_initiative %>
+  </div>
+</div>

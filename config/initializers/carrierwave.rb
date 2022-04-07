@@ -32,6 +32,8 @@ unless Rails.env.development? || Rails.env.test?
     end
     # This needs to be set for correct attachment file URLs in emails
     # DON'T FORGET to ALSO set this in `config/application.rb`
-    # config.asset_host = "https://ppan-mono.opensourcepolitics.net"
+    if Rails.application.secrets.dig(:asset, :host).present?
+      config.asset_host = Rails.application.secrets.dig(:asset, :host)
+    end
   end
 end
