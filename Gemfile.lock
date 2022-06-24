@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: https://github.com/OpenSourcePolitics/decidim.git
-  revision: 5a824d6858a5e03b0ace4fadce21835ea9f8e0c1
+  revision: 13d481f8ce0217f51b8c0ea1556ab96a6f9c4776
   branch: alt/petition_merge
   specs:
     decidim (0.22.0.dev)
