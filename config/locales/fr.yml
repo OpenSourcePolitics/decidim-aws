@@ -21,16 +21,12 @@ fr:
     account:
       show:
         change_address: Modifier mon adresse
-        custom_agreement: Je certifie être citoyen français ou résidant régulièrement
-          en France, ainsi que l’exactitude des informations du profil
-        unconfirmed_email: l'adresse <code>%{email}</code> est en cours de validation.<br/>
-          Un courriel vous a été transmis à cette adresse contenant un lien nous permettant
-          de confirmer son existence.
+        custom_agreement: Je certifie être citoyen français ou résidant régulièrement en France, ainsi que l’exactitude des informations du profil
+        unconfirmed_email: l'adresse <code>%{email}</code> est en cours de validation.<br/> Un courriel vous a été transmis à cette adresse contenant un lien nous permettant de confirmer son existence.
     admin:
       attachments:
         create:
-          error: Une erreur s'est produite lors de la création d'un nouvelle pièce
-            jointe.
+          error: Une erreur s'est produite lors de la création d'un nouvelle pièce jointe.
           success: Pièce jointe créée avec succès.
         destroy:
           success: Pièce jointe supprimée avec succès.
@@ -88,8 +84,7 @@ fr:
     devise:
       omniauth_registrations:
         new:
-          custom_agreement: Je certifie être citoyen français ou résidant régulièrement
-            en France, ainsi que l’exactitude des informations du profil
+          custom_agreement: Je certifie être citoyen français ou résidant régulièrement en France, ainsi que l’exactitude des informations du profil
           registration_info: |-
             Texte d'information pour la création de compte qui supporte le <code>HTML</code>.
             <br/><br/>
@@ -110,20 +105,7 @@ fr:
           archived: Archivée
       initiatives:
         show:
-          help_section: "<p>La plateforme des pétitions de l'Assemblée nationale permet
-            aux citoyens d'adresser des pétitions à l'Assemblée nationale et de signer
-            des pétitions déjà déposées.</p><p>Chaque pétition est attribuée à l'une
-            des huit commissions permanentes de l'Assemblée nationale, en fonction
-            de la thématique qu'elle aborde. Les pétitions ayant recueilli au moins
-            100 000 signatures sont mises en ligne sur le site de l'Assemblée nationale
-            pour plus de visibilité.</p><p>Après attribution de la pétition à une
-            commission, les députés de la commission désignent un député-rapporteur
-            qui propose ensuite soit d'examiner le texte au cours d'un débat faisant
-            l'objet d'un rapport parlementaire, soit de classer la pétition. </p><p>La
-            Conférence des présidents de l'Assemblée nationale peut également décider
-            d'organiser un débat en séance publique sur une pétition ayant recueilli
-            au moins 500 000 signatures, issues d'au moins 30 départements ou collectivités
-            d'outre-mer. </p>"
+          help_section: "<p>La plateforme des pétitions de l'Assemblée nationale permet aux citoyens d'adresser des pétitions à l'Assemblée nationale et de signer des pétitions déjà déposées.</p><p>Chaque pétition est attribuée à l'une des huit commissions permanentes de l'Assemblée nationale, en fonction de la thématique qu'elle aborde. Les pétitions ayant recueilli au moins 100 000 signatures sont mises en ligne sur le site de l'Assemblée nationale pour plus de visibilité.</p><p>Après attribution de la pétition à une commission, les députés de la commission désignent un député-rapporteur qui propose ensuite soit d'examiner le texte au cours d'un débat faisant l'objet d'un rapport parlementaire, soit de classer la pétition. </p><p>La Conférence des présidents de l'Assemblée nationale peut également décider d'organiser un débat en séance publique sur une pétition ayant recueilli au moins 500 000 signatures, issues d'au moins 30 départements ou collectivités d'outre-mer. </p>"
       update:
         error: fr.decidim.initiatives.update.error
         success: fr.decidim.initiatives.update.success
@@ -133,18 +115,10 @@ fr:
           link: https://franceconnect.gouv.fr/
           text: Qu'est-ce-que FranceConnect ?
       france_connect_profile:
-        explanation: '<b>L''auteur d''une pétition ne peut être anonyme.</b><br/>
-          <p>Toutefois, le Sénat ne récupère, via l''authentification FranceConnect
-          "Auteur", que les informations suivantes : <br/> nom, prénom(s), date de
-          naissance, adresse électronique et identifiant technique.<br/> <b>Les noms
-          et prénoms des auteurs de pétition sont publiés avec la pétition.</b><br/>
-          Les autres éléments ne sont en aucun cas rendus publics. </p>'
+        explanation: '<b>L''auteur d''une pétition ne peut être anonyme.</b><br/> <p>Toutefois, le Sénat ne récupère, via l''authentification FranceConnect "Auteur", que les informations suivantes : <br/> nom, prénom(s), date de naissance, adresse électronique et identifiant technique.<br/> <b>Les noms et prénoms des auteurs de pétition sont publiés avec la pétition.</b><br/> Les autres éléments ne sont en aucun cas rendus publics. </p>'
       france_connect_uid:
         anonymous_user: Authentifié(e) avec<br/><b>FranceConnect</b>
-        explanation: <b>La connexion via FranceConnect en tant que "Signataire" permet
-          de garantir votre anonymat</b>,<br/> tout en assurant qu'une pétition n'est
-          signée une seule fois par une même personne physique.<br/> <b>Aucune donnée
-          personnelle n'est récupérée lors de la connexion avec FranceConnect</b>
+        explanation: <b>La connexion via FranceConnect en tant que "Signataire" permet de garantir votre anonymat</b>,<br/> tout en assurant qu'une pétition n'est signée une seule fois par une même personne physique.<br/> <b>Aucune donnée personnelle n'est récupérée lors de la connexion avec FranceConnect</b>
     pages:
       terms_and_conditions:
         refuse:
@@ -184,8 +158,7 @@ fr:
           title: Liste des autorisations
       metadata:
         content:
-          active_email: '<b>Cet utilisateur peut être contacté aux coordonnées suivantes:
-            <p><a href="mailto:%{email}">%{email}</a><br/>%{full_address}</p></b>'
+          active_email: '<b>Cet utilisateur peut être contacté aux coordonnées suivantes: <p><a href="mailto:%{email}">%{email}</a><br/>%{full_address}</p></b>'
           address_complement: 'Complément d''adresse : %{address_complement}'
   devise:
     mailer:
@@ -197,8 +170,7 @@ fr:
       email_changed:
         action: Confirmer ma nouvelle adresse
         greeting: Bonjour %{recipient},
-        instruction: 'Nous vous contactons pour vous informer que votre adresse e-mail
-          a été modifiée à %{email}. Vous pouvez la confirmer via le lien ci-dessous:'
+        instruction: 'Nous vous contactons pour vous informer que votre adresse e-mail a été modifiée à %{email}. Vous pouvez la confirmer via le lien ci-dessous:'
         subject: Courriel modifié
     shared:
       links:
@@ -208,11 +180,9 @@ fr:
   layouts:
     decidim:
       footer:
-        download_open_data: Données ouvertes
         official_url: site de l'assemblée nationale
       mailer:
-        footer: À bientôt sur la plateforme de <a href="%{organization_url}">e-pétitions</a>
-          du Sénat.
+        footer: À bientôt sur la plateforme de <a href="%{organization_url}">e-pétitions</a> du Sénat.
       user_menu:
         admin_dashboard: Administration
       user_profile:
