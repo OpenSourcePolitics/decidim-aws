@@ -24,9 +24,9 @@ jobs:
         env:
           POSTGRES_PASSWORD: postgres
     env:
-      DATABASE_USERNAME: postgres
-      DATABASE_PASSWORD: postgres
-      DATABASE_HOST: localhost
+      RDS_USERNAME: postgres
+      RDS_PASSWORD: postgres
+      RDS_HOST: localhost
       RAILS_ENV: test
       # Set locales available for i18n tasks
       ENFORCED_LOCALES: "en,fr"
@@ -76,9 +76,9 @@ jobs:
         env:
           POSTGRES_PASSWORD: postgres
     env:
-      DATABASE_USERNAME: postgres
-      DATABASE_PASSWORD: postgres
-      DATABASE_HOST: localhost
+      RDS_USERNAME: postgres
+      RDS_PASSWORD: postgres
+      RDS_HOST: localhost
       RAILS_ENV: test
       # Set locales available for i18n tasks
       ENFORCED_LOCALES: "en,fr"
