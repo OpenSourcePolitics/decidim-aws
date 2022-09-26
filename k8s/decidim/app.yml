@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: decidim-sen-deployment
+spec:
+  selector:
+    matchLabels:
+      app: decidim-sen-app
+  template:
+    metadata:
+      labels:
+        app: decidim-sen-app
+    spec:
+      tolerations:
+      - key: "k8s.scaleway.com/dedicated"
+        value: "decidim-app"
+        effect: "NoSchedule"
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - decidim-sen-app
+                topologyKey: topology.kubernetes.io/zone
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: nginx-conf
+      containers:
+      - image: nginx:alpine
+        imagePullPolicy: Always
+        name: web
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        env:
+        - name: BACKEND_HOST
+          value: localhost
+        resources: 
+          requests:
+            cpu: "100m"
+            memory: "80Mi"
+          limits:
+            memory: "400Mi"
+        volumeMounts:
+        - name: nginx-conf
+          mountPath: /etc/nginx/conf.d
+        startupProbe:
+          httpGet:
+            path: /health_check
+            port: 80
+          initialDelaySeconds: 10
+          failureThreshold: 3
+          periodSeconds: 10
+      - name: app
+        image: rg.fr-par.scw.cloud/decidim-sen/decidim-sen:latest
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "450Mi"
+          limits:
+            cpu: "2"
+            memory: "1200Mi"
+        env:
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+        envFrom:
+          - configMapRef:
+              name: decidim-sen-app-config
+          - secretRef:
+              name: decidim-sen-app-secrets
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: decidim-sen-svc
+spec:
+  selector:
+    app: decidim-sen-app
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: decidim-sen-app-config
+  labels:
+    app: decidim-sen-app
+data:
+  RAILS_ENV: production
+  RAILS_SERVE_STATIC_FILES: "true"
+  APP_NAME: "decidim_sen"
+  WEB_CONCURRENCY: "0"
+  RACK_ATTACK_ENABLED: "false"
+  CACHE_ASSETS: "true"
+  RAILS_LOG_TO_STDOUT: "true"
+  NEW_RELIC_ENABLED: "false"

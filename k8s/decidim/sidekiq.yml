@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: decidim-sen-sidekiq-deployment
+spec:
+  selector:
+    matchLabels:
+      app: decidim-sen-sidekiq
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: decidim-sen-sidekiq
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - decidim-sen-sidekiq
+                topologyKey: topology.kubernetes.io/zone
+      terminationGracePeriodSeconds: 60 # put your longest Job time here plus security time.
+      containers:
+      - name: decidim-sen-sidekiq
+        image: rg.fr-par.scw.cloud/decidim-sen/decidim-sen:latest
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "450Mi"
+          limits:
+            cpu: "2"
+            memory: "1200Mi"
+        command: ["sidekiq", "-C", "config/sidekiq.yml"]
+        ports:
+          - containerPort: 7433
+        livenessProbe:
+          httpGet:
+            path: /sidekiq_alive
+            port: 7433
+          initialDelaySeconds: 30 # app specific. Time your sidekiq takes to start processing.
+          timeoutSeconds: 5 # can be much less
+        readinessProbe:
+          httpGet:
+            path: /sidekiq_alive
+            port: 7433
+          initialDelaySeconds: 30 # app specific
+          timeoutSeconds: 5 # can be much less
+        lifecycle:
+          preStop:
+            exec:
+              # SIGTERM triggers a quick exit; gracefully terminate instead
+              command: [ './sidekiq_quiet.sh' ]
+        env:
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+        envFrom:
+          - configMapRef:
+              name: decidim-sen-app-config
+          - secretRef:
+              name: decidim-sen-app-secrets

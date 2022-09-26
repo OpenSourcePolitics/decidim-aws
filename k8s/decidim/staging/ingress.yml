@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: decidim-sen-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/issuer: letsencrypt-prod
+spec:
+  rules:
+  - host: pps-int.opensourcepolitics.net
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: decidim-sen-svc
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - pps-int.opensourcepolitics.net
+    secretName: decidim-sen-ingress-secret-2
