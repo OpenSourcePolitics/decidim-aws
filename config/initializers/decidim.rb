@@ -7,7 +7,7 @@ Decidim.configure do |config|
 
   # Change these lines to set your preferred locales
   config.default_locale = :fr
-  config.available_locales = [:fr]
+  config.available_locales = [:fr, :en]
 
   # Restrict access to the system part with an authorized ip list.
   # You can use a single ip like ("1.2.3.4"), or an ip subnet like ("1.2.3.4/24")
