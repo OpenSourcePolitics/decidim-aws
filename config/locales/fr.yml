@@ -2,6 +2,8 @@
 fr:
   activemodel:
     attributes:
+      account:
+        delete_reason: Delete reason
       attachment:
         attachment_collection_id: Dossier
         description: Description
@@ -17,12 +19,26 @@ fr:
         postal_code: Code postal
     models:
       decidim/attachment_created_event: Pièce jointe
+  carrierwave:
+    errors:
+      image_too_big: Image too big
   decidim:
+    accessibility:
+      skip_button: Skip button
     account:
+      delete:
+        alert: Alert
+        confirm:
+          close: Close
+          ok: Ok
+          question: Question
+          title: Title
+        explanation: Explanation
       show:
         change_address: Modifier mon adresse
         custom_agreement: Je certifie être citoyen français ou résidant régulièrement en France, ainsi que l’exactitude des informations du profil
         unconfirmed_email: l'adresse <code>%{email}</code> est en cours de validation.<br/> Un courriel vous a été transmis à cette adresse contenant un lien nous permettant de confirmer son existence.
+        update_account: Update account
     admin:
       attachments:
         create:
@@ -49,6 +65,19 @@ fr:
           fields:
             weight: Ordre de présentation de la pièce jointe
           name: Pièce jointe
+      organization_appearance:
+        form:
+          colors_title: Colors title
+          cta_button_path_help: Cta button path help
+          cta_button_text_help: Cta button text help
+          header_snippets_help: Header snippets help
+          homepage_appearance_title: Homepage appearance title
+          homepage_highlighted_content_banner_title: Homepage highlighted content banner title
+          layout_appearance_title: Layout appearance title
+          omnipresent_banner_appearance_title: Omnipresent banner appearance title
+      titles:
+        initiatives: Initiatives
+    anonymous_user: Anonymous user
     authorization_handlers:
       admin:
         decidim:
@@ -69,6 +98,8 @@ fr:
       decidim:
         explanation: Confirmer votre identité avec un compte Decidim externe
         name: Omniauth Decidim
+      expired_at: Expired at
+      expires_at: Expires at
       france_connect:
         explanation: Confirmer votre identité avec un compte FranceConnect
         name: France Connect
@@ -78,12 +109,37 @@ fr:
       france_connect_uid:
         explanation: Confirmer votre identité avec un compte FranceConnect Signataire
         name: FranceConnect Signataire
+      granted_at: Granted at
+      omniauth_anti_affinity:
+        explanation: Explanation
       saml:
         explanation: Confirmer votre identité avec un compte CSAM eID
         name: CSAM eID
+      started_at: Started at
+    authorization_modals:
+      content:
+        missing:
+          explanation: Explanation
+        unconfirmed:
+          confirmation_instructions: Confirmation instructions
+          explanation_html: Explanation html
+          request_confirmation_instructions: Request confirmation instructions
+          title: Title
+    data_portability:
+      show:
+        download_data: Download data
+        download_data_description: Download data description
+        request_data: Request data
+    destroy_account_mailer:
+      notify:
+        destroy_account_explanation: Destroy account explanation
+        destroy_account_html: Destroy account html
+        hello: Hello
+        subject: Subject
     devise:
       omniauth_registrations:
         new:
+          complete_profile: Complete profile
           custom_agreement: Je certifie être citoyen français ou résidant régulièrement en France, ainsi que l’exactitude des informations du profil
           registration_info: |-
             Texte d'information pour la création de compte qui supporte le <code>HTML</code>.
@@ -91,6 +147,31 @@ fr:
             <small>
               <i>Please change me with translation key <code>decidim.devise.omniauth_registrations.new.registration_info</code><i/>
             <small/>
+          sign_up: Sign up
+          subtitle: Subtitle
+      registrations:
+        new:
+          already_have_an_account?: Already have an account?
+          newsletter: Newsletter
+          newsletter_title: Newsletter title
+          nickname_help: Nickname help
+          password_help: Password help
+          sign_in: Sign in
+          sign_up: Sign up
+          subtitle: Subtitle
+          terms: Terms
+          tos_agreement: Tos agreement
+          tos_title: Tos title
+          username_help: Username help
+      sessions:
+        new:
+          are_you_new?: Are you new?
+          register: Register
+          sign_in_disabled: Sign in disabled
+          sign_up_disabled: Sign up disabled
+    errors:
+      not_found:
+        back_home: Back home
     event:
       initiatives:
         admin:
@@ -103,12 +184,19 @@ fr:
       application_helper:
         filter_state_values:
           archived: Archivée
+      form:
+        add_attachments: Add attachments
+        attachment_legend: Attachment legend
+        delete_attachment: Delete attachment
       initiatives:
         show:
           help_section: "<p>La plateforme des pétitions de l'Assemblée nationale permet aux citoyens d'adresser des pétitions à l'Assemblée nationale et de signer des pétitions déjà déposées.</p><p>Chaque pétition est attribuée à l'une des huit commissions permanentes de l'Assemblée nationale, en fonction de la thématique qu'elle aborde. Les pétitions ayant recueilli au moins 100 000 signatures sont mises en ligne sur le site de l'Assemblée nationale pour plus de visibilité.</p><p>Après attribution de la pétition à une commission, les députés de la commission désignent un député-rapporteur qui propose ensuite soit d'examiner le texte au cours d'un débat faisant l'objet d'un rapport parlementaire, soit de classer la pétition. </p><p>La Conférence des présidents de l'Assemblée nationale peut également décider d'organiser un débat en séance publique sur une pétition ayant recueilli au moins 500 000 signatures, issues d'au moins 30 départements ou collectivités d'outre-mer. </p>"
       update:
         error: fr.decidim.initiatives.update.error
         success: fr.decidim.initiatives.update.success
+    notifications_settings:
+      show:
+        email_on_notification: Email on notification
     omniauth:
       france_connect:
         external:
@@ -130,7 +218,21 @@ fr:
           modal_title: Refusez-vous vraiment les conditions d'utilisation ?
     profile:
       deleted: Compte utilisateur supprimé
+    progress_bar:
+      show:
+        number_delimiter: Number delimiter
+    proposals:
+      proposals:
+        edit:
+          attachment_legend: Attachment legend
+    scopes:
+      global: Global
+    search:
+      term_input_placeholder: Term input placeholder
     shared:
+      login_modal:
+        please_sign_in: Please sign in
+        sign_up: Sign up
       version_author:
         profile: Compte utilisateur supprimé
     system:
@@ -160,7 +262,19 @@ fr:
         content:
           active_email: '<b>Cet utilisateur peut être contacté aux coordonnées suivantes: <p><a href="mailto:%{email}">%{email}</a><br/>%{full_address}</p></b>'
           address_complement: 'Complément d''adresse : %{address_complement}'
+          title: Title
+      omniauth:
+        admin:
+          authorizations:
+            index:
+              actions:
+                metadata: Metadata
+        errors:
+          minimum_age: Minimum age
   devise:
+    confirmations:
+      new:
+        resend_confirmation_instructions: Resend confirmation instructions
     mailer:
       confirmation_instructions:
         action: Confirmer mon compte
@@ -172,20 +286,44 @@ fr:
         greeting: Bonjour %{recipient},
         instruction: 'Nous vous contactons pour vous informer que votre adresse e-mail a été modifiée à %{email}. Vous pouvez la confirmer via le lien ci-dessous:'
         subject: Courriel modifié
+    registrations:
+      new:
+        sign_up: Sign up
+    sessions:
+      new:
+        sign_in: Sign in
     shared:
       links:
+        forgot_your_password: Forgot your password
+        sign_in_with_provider: Sign in with provider
         signed_in_with_provider: Authentifié(e) avec %{provider} <br/>
   forms:
     required_explanation: "* Les champs obligatoires sont marqués d'un astérisque"
   layouts:
     decidim:
+      cookie_warning:
+        description_html: Description html
+        link_label: Link label
+        ok: Ok
       footer:
+        made_with_open_source: Made with open source
         official_url: site de l'assemblée nationale
+      header:
+        close_menu: Close menu
+        navigation: Navigation
+        sign_in: Sign in
+        sign_up: Sign up
       mailer:
         footer: À bientôt sur la plateforme de <a href="%{organization_url}">e-pétitions</a> du Sénat.
       user_menu:
         admin_dashboard: Administration
+        profile: Profile
+        sign_out: Sign out
       user_profile:
         authorizations: Voir les autorisations associées à votre compte
         back_to_account: Retour à votre compte
+        my_data: My data
+        title: Title
+  locale:
+    name: Name
   manage: Gérer

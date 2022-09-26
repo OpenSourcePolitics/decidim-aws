@@ -1,6 +1,83 @@
 ---
 en:
+  activemodel:
+    attributes:
+      account:
+        delete_reason: Delete reason
+      attachment:
+        attachment_collection_id: Dossier
+        description: Description
+        file: Fichier (*.pdf)
+        title: Titre
+        weight: Ordre de présentation
+      user:
+        address_complement: Complément d'adresse
+        city: Commune
+        country: Pays
+        full_address: Votre adresse postale
+        number_and_street: Numéro et libellé de la voie
+        postal_code: Code postal
+    models:
+      decidim/attachment_created_event: Pièce jointe
+  carrierwave:
+    errors:
+      image_too_big: Image too big
   decidim:
+    accessibility:
+      skip_button: Skip button
+    account:
+      delete:
+        alert: Alert
+        confirm:
+          close: Close
+          ok: Ok
+          question: Question
+          title: Title
+        explanation: Explanation
+      show:
+        change_address: Modifier mon adresse
+        custom_agreement: Je certifie être citoyen français ou résidant régulièrement en France, ainsi que l’exactitude des informations du profil
+        unconfirmed_email: l'adresse <code>%{email}</code> est en cours de validation.<br/> Un courriel vous a été transmis à cette adresse contenant un lien nous permettant de confirmer son existence.
+        update_account: Update account
+    admin:
+      attachments:
+        create:
+          error: Une erreur s'est produite lors de la création d'un nouvelle pièce jointe.
+          success: Pièce jointe créée avec succès.
+        destroy:
+          success: Pièce jointe supprimée avec succès.
+        edit:
+          title: Modifier la pièce jointe
+          update: Mettre à jour
+        index:
+          attachments_title: Pièce(s) jointe(s) (2 maximum)
+        new:
+          create: Envoyer
+          title: Nouvelle pièce jointe
+        update:
+          error: Une erreur s'est produite lors de la mise à jour de cette pièce jointe.
+          success: Pièce jointe mise à jour avec succès.
+      menu:
+        participatory_processes_submenu:
+          attachments: Pièce(s) jointe(s)
+      models:
+        attachment:
+          fields:
+            weight: Ordre de présentation de la pièce jointe
+          name: Pièce jointe
+      organization_appearance:
+        form:
+          colors_title: Colors title
+          cta_button_path_help: Cta button path help
+          cta_button_text_help: Cta button text help
+          header_snippets_help: Header snippets help
+          homepage_appearance_title: Homepage appearance title
+          homepage_highlighted_content_banner_title: Homepage highlighted content banner title
+          layout_appearance_title: Layout appearance title
+          omnipresent_banner_appearance_title: Omnipresent banner appearance title
+      titles:
+        initiatives: Initiatives
+    anonymous_user: Anonymous user
     authorization_handlers:
       admin:
         decidim:
@@ -21,6 +98,8 @@ en:
       decidim:
         explanation: Validate with your external Decidim account
         name: Omniauth Decidim
+      expired_at: Expired at
+      expires_at: Expires at
       france_connect:
         explanation: Validate with your France Connect account
         name: France Connect
@@ -30,16 +109,218 @@ en:
       france_connect_uid:
         explanation: Validate with your France Connect account
         name: France Connect Level I
+      granted_at: Granted at
+      omniauth_anti_affinity:
+        explanation: Explanation
       saml:
         explanation: Validate with your CSAM eID account
         name: CSAM eID
+      started_at: Started at
+    authorization_modals:
+      content:
+        missing:
+          explanation: Explanation
+        unconfirmed:
+          confirmation_instructions: Confirmation instructions
+          explanation_html: Explanation html
+          request_confirmation_instructions: Request confirmation instructions
+          title: Title
+    data_portability:
+      show:
+        download_data: Download data
+        download_data_description: Download data description
+        request_data: Request data
+    destroy_account_mailer:
+      notify:
+        destroy_account_explanation: Destroy account explanation
+        destroy_account_html: Destroy account html
+        hello: Hello
+        subject: Subject
+    devise:
+      omniauth_registrations:
+        new:
+          complete_profile: Complete profile
+          custom_agreement: Je certifie être citoyen français ou résidant régulièrement en France, ainsi que l’exactitude des informations du profil
+          registration_info: |-
+            Texte d'information pour la création de compte qui supporte le <code>HTML</code>.
+            <br/><br/>
+            <small>
+              <i>Please change me with translation key <code>decidim.devise.omniauth_registrations.new.registration_info</code><i/>
+            <small/>
+          sign_up: Sign up
+          subtitle: Subtitle
+      registrations:
+        new:
+          already_have_an_account?: Already have an account?
+          newsletter: Newsletter
+          newsletter_title: Newsletter title
+          nickname_help: Nickname help
+          password_help: Password help
+          sign_in: Sign in
+          sign_up: Sign up
+          subtitle: Subtitle
+          terms: Terms
+          tos_agreement: Tos agreement
+          tos_title: Tos title
+          username_help: Username help
+      sessions:
+        new:
+          are_you_new?: Are you new?
+          register: Register
+          sign_in_disabled: Sign in disabled
+          sign_up_disabled: Sign up disabled
+    errors:
+      not_found:
+        back_home: Back home
+    event:
+      initiatives:
+        admin:
+          support_threshold_reached:
+            email_intro: decidim.event.initiatives.admin.support_threshold_reached.email_intro
+            email_outro: decidim.event.initiatives.admin.support_threshold_reached.email_outro
+            email_subject: decidim.event.initiatives.admin.support_threshold_reached.email_subject
+            notification_title: decidim.event.initiatives.admin.support_threshold_reached.notification_title
     initiatives:
+      form:
+        add_attachments: Add attachments
+        attachment_legend: Attachment legend
+        delete_attachment: Delete attachment
       initiatives:
         show:
           help_section: "<p>La plateforme des pétitions de l'Assemblée nationale permet aux citoyens d'adresser des pétitions à l'Assemblée nationale et de signer des pétitions déjà déposées.</p><p>Chaque pétition est attribuée à l'une des huit commissions permanentes de l'Assemblée nationale, en fonction de la thématique qu'elle aborde. Les pétitions ayant recueilli au moins 100 000 signatures sont mises en ligne sur le site de l'Assemblée nationale pour plus de visibilité.</p><p>Après attribution de la pétition à une commission, les députés de la commission désignent un député-rapporteur qui propose ensuite soit d'examiner le texte au cours d'un débat faisant l'objet d'un rapport parlementaire, soit de classer la pétition. </p><p>La Conférence des présidents de l'Assemblée nationale peut également décider d'organiser un débat en séance publique sur une pétition ayant recueilli au moins 500 000 signatures, issues d'au moins 30 départements ou collectivités d'outre-mer. </p>"
+      update:
+        error: fr.decidim.initiatives.update.error
+        success: fr.decidim.initiatives.update.success
+    notifications_settings:
+      show:
+        email_on_notification: Email on notification
+    omniauth:
+      france_connect:
+        external:
+          link: https://franceconnect.gouv.fr/
+          text: Qu'est-ce-que FranceConnect ?
+      france_connect_profile:
+        explanation: '<b>L''auteur d''une pétition ne peut être anonyme.</b><br/> <p>Toutefois, le Sénat ne récupère, via l''authentification FranceConnect "Auteur", que les informations suivantes : <br/> nom, prénom(s), date de naissance, adresse électronique et identifiant technique.<br/> <b>Les noms et prénoms des auteurs de pétition sont publiés avec la pétition.</b><br/> Les autres éléments ne sont en aucun cas rendus publics. </p>'
+      france_connect_uid:
+        anonymous_user: Authentifié(e) avec<br/><b>FranceConnect</b>
+        explanation: <b>La connexion via FranceConnect en tant que "Signataire" permet de garantir votre anonymat</b>,<br/> tout en assurant qu'une pétition n'est signée une seule fois par une même personne physique.<br/> <b>Aucune donnée personnelle n'est récupérée lors de la connexion avec FranceConnect</b>
+    pages:
+      terms_and_conditions:
+        refuse:
+          modal_body: Si vous refusez, vous ne pourrez pas utiliser la plateforme.
+          modal_btn_continue: Accepter les conditions <br/> et continuer
+          modal_btn_exit: Refuser les conditions <br/> et se déconnecter
+          modal_button: Refuser les conditions d'utilisation
+          modal_close: Fermer la fenêtre
+          modal_title: Refusez-vous vraiment les conditions d'utilisation ?
     profile:
       deleted: Compte utilisateur supprimé
+    progress_bar:
+      show:
+        number_delimiter: Number delimiter
+    proposals:
+      proposals:
+        edit:
+          attachment_legend: Attachment legend
+    scopes:
+      global: Global
+    search:
+      term_input_placeholder: Term input placeholder
     shared:
+      login_modal:
+        please_sign_in: Please sign in
+        sign_up: Sign up
       version_author:
         profile: Compte utilisateur supprimé
+    system:
+      organizations:
+        omniauth_settings:
+          france_connect_profile:
+            button_path: Chemin de l'image du bouton
+            client_id: ID client
+            client_secret: Clé secrète
+            end_session_endpoint: Endpoint de déconnexion
+            minimum_age: Age minimum
+            provider_name: Nom du service
+            site: URL principale du service
+          france_connect_uid:
+            button_path: Chemin de l'image du bouton
+            client_id: ID client
+            client_secret: Clé secrète
+            end_session_endpoint: Endpoint de déconnexion
+            minimum_age: Age minimum
+            provider_name: Nom du service
+            site: URL principale du service
+    verifications:
+      authorizations:
+        index:
+          title: Liste des autorisations
+      metadata:
+        content:
+          active_email: '<b>Cet utilisateur peut être contacté aux coordonnées suivantes: <p><a href="mailto:%{email}">%{email}</a><br/>%{full_address}</p></b>'
+          address_complement: 'Complément d''adresse : %{address_complement}'
+          title: Title
+      omniauth:
+        admin:
+          authorizations:
+            index:
+              actions:
+                metadata: Metadata
+        errors:
+          minimum_age: Minimum age
+  devise:
+    confirmations:
+      new:
+        resend_confirmation_instructions: Resend confirmation instructions
+    mailer:
+      confirmation_instructions:
+        action: Confirmer mon compte
+        greeting: Bonjour %{recipient},
+        instruction: 'Vous pouvez confirmer votre compte email par le lien ci-dessous:'
+        subject: Instructions de confirmation
+      email_changed:
+        action: Confirmer ma nouvelle adresse
+        greeting: Bonjour %{recipient},
+        instruction: 'Nous vous contactons pour vous informer que votre adresse e-mail a été modifiée à %{email}. Vous pouvez la confirmer via le lien ci-dessous:'
+        subject: Courriel modifié
+    registrations:
+      new:
+        sign_up: Sign up
+    sessions:
+      new:
+        sign_in: Sign in
+    shared:
+      links:
+        forgot_your_password: Forgot your password
+        sign_in_with_provider: Sign in with provider
+        signed_in_with_provider: Authentifié(e) avec %{provider} <br/>
+  forms:
+    required_explanation: "* Les champs obligatoires sont marqués d'un astérisque"
+  layouts:
+    decidim:
+      cookie_warning:
+        description_html: Description html
+        link_label: Link label
+        ok: Ok
+      footer:
+        made_with_open_source: Made with open source
+        official_url: site de l'assemblée nationale
+      header:
+        close_menu: Close menu
+        navigation: Navigation
+        sign_in: Sign in
+        sign_up: Sign up
+      mailer:
+        footer: À bientôt sur la plateforme de <a href="%{organization_url}">e-pétitions</a> du Sénat.
+      user_menu:
+        admin_dashboard: Administration
+        profile: Profile
+        sign_out: Sign out
+      user_profile:
+        authorizations: Voir les autorisations associées à votre compte
+        back_to_account: Retour à votre compte
+        my_data: My data
+        title: Title
+  locale:
+    name: Name
   manage: Manage
