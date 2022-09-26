@@ -37,6 +37,8 @@ module CreateOmniauthRegistrationExtend
       end
     end
 
+    # rubocop:disable Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/CyclomaticComplexity
     def create_or_find_user
       generated_password = SecureRandom.hex
 
@@ -87,6 +89,8 @@ module CreateOmniauthRegistrationExtend
       @user.tos_agreement = "1"
       @user.save!
     end
+    # rubocop:enable Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/CyclomaticComplexity
   end
 end
 

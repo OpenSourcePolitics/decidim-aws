@@ -9,9 +9,9 @@ namespace :decidim do
   namespace :scopes do
     desc "Import scopes"
     task import: :environment do |task|
-      ARGV.each { |a| task a.to_sym do; end }
-      @ROOT = task.application.original_dir
-      @TYPES = {}
+      ARGV.each { |a| task a.to_sym }
+      @root = task.application.original_dir
+      @types = {}
 
       if Decidim::Organization.exists?(host: ARGV[1])
         @organization = Decidim::Organization.find_by(host: ARGV[1])
@@ -47,7 +47,7 @@ namespace :decidim do
     namespace :generate do
       desc "Generate assemblies from scopes"
       task assemblies: :environment do |_task|
-        ARGV.each { |a| task a.to_sym do; end }
+        ARGV.each { |a| task a.to_sym }
 
         if Decidim::Organization.exists?(host: ARGV[1])
           @organization = Decidim::Organization.find_by(host: ARGV[1])
@@ -66,7 +66,7 @@ def path_for(path)
   if path.start_with?("/")
     path
   else
-    @ROOT + "/" + path
+    @root + "/" + path
   end
 end
 
@@ -116,33 +116,33 @@ def import_scopes(params)
                                     plural: { "#{@organization.default_locale}": @options[:plural] }
                                   )
 
-  if @options[:csv_mapping].dig(:code)
-    @TYPES[@options[:csv_mapping].dig(:code)] = @scope_type
+  return unless @options[:csv_mapping].dig(:code)
 
-    @csv.each do |row|
-      Rails.logger.info row.to_h
+  @types[@options[:csv_mapping].dig(:code)] = @scope_type
 
-      code = @options[:csv_mapping].dig(:code) + "-" + row[@options[:csv_mapping].dig(:code)]
-      name = row[@options[:csv_mapping].dig(:name)]
+  @csv.each do |row|
+    Rails.logger.info row.to_h
 
-      parent = if @options[:csv_mapping].dig(:parent)
-                 Decidim::Scope.find_by(
-                   decidim_organization_id: @organization.id,
-                   scope_type_id: @TYPES[@options[:csv_mapping].dig(:parent)].id,
-                   code: @options[:csv_mapping].dig(:parent) + "-" + row[@options[:csv_mapping].dig(:parent)]
-                 )&.id
-               end
+    code = @options[:csv_mapping].dig(:code) + "-" + row[@options[:csv_mapping].dig(:code)]
+    name = row[@options[:csv_mapping].dig(:name)]
 
-      Decidim::Scope.find_or_initialize_by(
-        decidim_organization_id: @organization.id,
-        scope_type_id: @scope_type.id,
-        code: code
-      ).update!(
-        code: code,
-        parent_id: parent,
-        name: { "#{@organization.default_locale}": name }
-      )
-    end
+    parent = if @options[:csv_mapping].dig(:parent)
+               Decidim::Scope.find_by(
+                 decidim_organization_id: @organization.id,
+                 scope_type_id: @types[@options[:csv_mapping].dig(:parent)].id,
+                 code: @options[:csv_mapping].dig(:parent) + "-" + row[@options[:csv_mapping].dig(:parent)]
+               )&.id
+             end
+
+    Decidim::Scope.find_or_initialize_by(
+      decidim_organization_id: @organization.id,
+      scope_type_id: @scope_type.id,
+      code: code
+    ).update!(
+      code: code,
+      parent_id: parent,
+      name: { "#{@organization.default_locale}": name }
+    )
   end
 end
 
