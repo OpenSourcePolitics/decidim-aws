@@ -9,18 +9,18 @@ namespace :decidim do
   namespace :scopes do
     desc "Import scopes"
     task import: :environment do |task|
-      ARGV.each { |a| task a.to_sym do ; end }
+      ARGV.each { |a| task a.to_sym do; end }
       @ROOT = task.application.original_dir
       @TYPES = {}
 
-      if Decidim::Organization.exists?(:host => ARGV[1])
-        @organization = Decidim::Organization.find_by(:host => ARGV[1])
+      if Decidim::Organization.exists?(host: ARGV[1])
+        @organization = Decidim::Organization.find_by(host: ARGV[1])
       else
         Rails.logger.error "Could not find any organization with host \"#{ARGV[1]}\""
         exit 1
       end
 
-      import_scopes({
+      import_scopes(
         name: "Région",
         plural: "Régions",
         csv_file: "vendor/insee/region2019.csv",
@@ -28,9 +28,9 @@ namespace :decidim do
           code: "reg",
           name: "libelle"
         }
-      })
+      )
 
-      import_scopes({
+      import_scopes(
         name: "Département",
         csv_file: "vendor/insee/departement2019.csv",
         csv_mapping: {
@@ -38,7 +38,7 @@ namespace :decidim do
           parent: "reg",
           name: "libelle"
         }
-      })
+      )
 
       Rails.logger.close
       exit
@@ -46,23 +46,21 @@ namespace :decidim do
 
     namespace :generate do
       desc "Generate assemblies from scopes"
-      task assemblies: :environment do |task|
-        ARGV.each { |a| task a.to_sym do ; end }
+      task assemblies: :environment do |_task|
+        ARGV.each { |a| task a.to_sym do; end }
 
-        if Decidim::Organization.exists?(:host => ARGV[1])
-          @organization = Decidim::Organization.find_by(:host => ARGV[1])
+        if Decidim::Organization.exists?(host: ARGV[1])
+          @organization = Decidim::Organization.find_by(host: ARGV[1])
         else
           Rails.logger.error "Could not find any organization with host \"#{ARGV[1]}\""
           exit 1
         end
 
         generate_assemblies
-
       end
     end
   end
 end
-
 
 def path_for(path)
   if path.start_with?("/")
@@ -85,12 +83,12 @@ def check_file(path, ext = nil)
     check = false
   end
 
-  if ext.present? && File.extname(path) != ".#{ext.to_s}"
-    Rails.logger.error "File extension does not match \"#{ext.to_s}\""
+  if ext.present? && File.extname(path) != ".#{ext}"
+    Rails.logger.error "File extension does not match \"#{ext}\""
     check = false
   end
 
-  return check
+  check
 end
 
 def import_scopes(params)
@@ -105,18 +103,18 @@ def import_scopes(params)
   Rails.logger.info @options
 
   if check_file(@options[:csv_file], :csv)
-    @csv = CSV.read(path_for(@options[:csv_file]), col_sep: ',', headers: true, skip_blanks: true)
+    @csv = CSV.read(path_for(@options[:csv_file]), col_sep: ",", headers: true, skip_blanks: true)
   else
     Rails.logger.error "Could not load CSV file \"#{@options[:csv_file]}\""
     exit 1
   end
 
   @scope_type = Decidim::ScopeType.where(decidim_organization_id: @organization.id)
-  .where('name @> ?', {"#{@organization.default_locale}": @options[:name]}.to_json)
-  .first_or_create!(
-    name: {"#{@organization.default_locale}": @options[:name]},
-    plural: {"#{@organization.default_locale}": @options[:plural]}
-  )
+                                  .where("name @> ?", { "#{@organization.default_locale}": @options[:name] }.to_json)
+                                  .first_or_create!(
+                                    name: { "#{@organization.default_locale}": @options[:name] },
+                                    plural: { "#{@organization.default_locale}": @options[:plural] }
+                                  )
 
   if @options[:csv_mapping].dig(:code)
     @TYPES[@options[:csv_mapping].dig(:code)] = @scope_type
@@ -124,23 +122,25 @@ def import_scopes(params)
     @csv.each do |row|
       Rails.logger.info row.to_h
 
-      _code = @options[:csv_mapping].dig(:code) + "-" + row[@options[:csv_mapping].dig(:code)]
-      _name = row[@options[:csv_mapping].dig(:name)]
+      code = @options[:csv_mapping].dig(:code) + "-" + row[@options[:csv_mapping].dig(:code)]
+      name = row[@options[:csv_mapping].dig(:name)]
 
-      _parent = @options[:csv_mapping].dig(:parent) ? Decidim::Scope.find_by(
-        :decidim_organization_id => @organization.id,
-        :scope_type_id => @TYPES[@options[:csv_mapping].dig(:parent)].id,
-        :code => @options[:csv_mapping].dig(:parent) + "-" + row[@options[:csv_mapping].dig(:parent)]
-      )&.id : nil
+      parent = if @options[:csv_mapping].dig(:parent)
+                 Decidim::Scope.find_by(
+                   decidim_organization_id: @organization.id,
+                   scope_type_id: @TYPES[@options[:csv_mapping].dig(:parent)].id,
+                   code: @options[:csv_mapping].dig(:parent) + "-" + row[@options[:csv_mapping].dig(:parent)]
+                 )&.id
+               end
 
-      scope = Decidim::Scope.find_or_initialize_by(
+      Decidim::Scope.find_or_initialize_by(
         decidim_organization_id: @organization.id,
         scope_type_id: @scope_type.id,
-        code: _code
+        code: code
       ).update!(
-        code: _code,
-        parent_id: _parent,
-        name: {"#{@organization.default_locale}": _name},
+        code: code,
+        parent_id: parent,
+        name: { "#{@organization.default_locale}": name }
       )
     end
   end
@@ -151,7 +151,6 @@ def generate_assemblies
     decidim_organization_id: @organization.id,
     parent_id: nil
   ).each do |scope|
-
     parent_assembly = Decidim::Assembly.find_or_create_by!(
       organization: @organization,
       title: scope.name,
@@ -175,7 +174,6 @@ def generate_assemblies
       decidim_organization_id: @organization.id,
       parent_id: scope.id
     ).each do |child_scope|
-
       Rails.logger.info child_scope.name[@organization.default_locale].parameterize
 
       child_assembly = Decidim::Assembly.find_or_create_by!(
@@ -198,6 +196,5 @@ def generate_assemblies
         meta_scope: child_scope.name
       )
     end
-
   end
 end

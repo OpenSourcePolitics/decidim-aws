@@ -18,9 +18,9 @@ module Decidim
 
         def answered_initiatives
           @answered_initiatives ||= OrganizationAnsweredInitiatives
-                                        .new(current_organization)
-                                        .query
-                                        .limit(max_results)
+                                    .new(current_organization)
+                                    .query
+                                    .limit(max_results)
         end
 
         def hide_cta_button_class

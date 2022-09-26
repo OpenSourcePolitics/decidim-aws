@@ -101,16 +101,16 @@ module Decidim::Initiatives
         expect(serialized[:firms]).to include(scopes: "n/a")
       end
 
-      context "#uniq_vote_scopes" do
+      describe "#uniq_vote_scopes" do
         let(:scopes) { create_list(:scope, 5, organization: organization) }
         let(:initiative) { create(:initiative, :with_user_extra_fields_collection, organization: organization) }
 
         before do
           create_list(:initiative_user_vote, 2, initiative: initiative,
-                      encrypted_metadata: Decidim::Initiatives::DataEncryptor.new(secret: "personal user metadata").encrypt(user_scope_id: scopes[2].id))
+                                                encrypted_metadata: Decidim::Initiatives::DataEncryptor.new(secret: "personal user metadata").encrypt(user_scope_id: scopes[2].id))
 
           create_list(:initiative_user_vote, 2, initiative: initiative,
-                      encrypted_metadata: Decidim::Initiatives::DataEncryptor.new(secret: "personal user metadata").encrypt(user_scope_id: scopes[3].id))
+                                                encrypted_metadata: Decidim::Initiatives::DataEncryptor.new(secret: "personal user metadata").encrypt(user_scope_id: scopes[3].id))
 
           create(:initiative_user_vote,
                  initiative: initiative,
@@ -136,11 +136,8 @@ module Decidim::Initiatives
         context "when votes are superior to 500000" do
           before do
             allow(subject).to receive(:min_vote_scopes_to_calculate).and_return(5)
-          end
-
-          before do
             create_list(:initiative_user_vote, 10, initiative: initiative,
-                        encrypted_metadata: Decidim::Initiatives::DataEncryptor.new(secret: "personal user metadata").encrypt(user_scope_id: scopes[3].id))
+                                                   encrypted_metadata: Decidim::Initiatives::DataEncryptor.new(secret: "personal user metadata").encrypt(user_scope_id: scopes[3].id))
           end
 
           it "serializes uniq scopes vote count" do
@@ -150,9 +147,9 @@ module Decidim::Initiatives
         end
       end
 
-      context "#min_vote_scopes_to_calculate" do
+      describe "#min_vote_scopes_to_calculate" do
         it "returns 500000" do
-          expect(subject.send(:min_vote_scopes_to_calculate)).to eq(500000)
+          expect(subject.send(:min_vote_scopes_to_calculate)).to eq(500_000)
         end
       end
     end

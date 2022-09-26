@@ -35,9 +35,9 @@ module Decidim
           return broadcast(:invalid) if attachments_invalid?
         end
         @initiative = Decidim.traceability.update!(
-            initiative,
-            current_user,
-            attributes
+          initiative,
+          current_user,
+          attributes
         )
 
         create_attachments if process_attachments?
@@ -52,9 +52,9 @@ module Decidim
 
       def attributes
         attrs = {
-            title: { current_locale => form.title },
-            description: { current_locale => form.description },
-            hashtag: form.hashtag
+          title: { current_locale => form.title },
+          description: { current_locale => form.description },
+          hashtag: form.hashtag
         }
 
         if form.signature_type_updatable?

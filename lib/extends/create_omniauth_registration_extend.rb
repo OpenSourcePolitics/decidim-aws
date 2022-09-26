@@ -1,11 +1,11 @@
 # frozen_string_literal: true
-require 'active_support/concern'
+
+require "active_support/concern"
 
 module CreateOmniauthRegistrationExtend
   extend ActiveSupport::Concern
 
   included do
-
     def call
       verify_oauth_signature!
 
@@ -17,7 +17,7 @@ module CreateOmniauthRegistrationExtend
           return broadcast(:ok, user)
         end
 
-        if request.path.end_with?('france_connect_profile/callback')
+        if request.path.end_with?("france_connect_profile/callback")
           form.minimum_age
           return broadcast(:error, user)
         end
@@ -43,7 +43,7 @@ module CreateOmniauthRegistrationExtend
       if (verified_email || form.email).blank?
 
         @user = Decidim::User.new(
-          email: '',
+          email: "",
           organization: organization,
           name: form.name,
           nickname: form.nickname,
@@ -74,17 +74,17 @@ module CreateOmniauthRegistrationExtend
 
           @user.address = form.address
           @user.full_address = @user.computed_full_address(@user.address)
-          @user.custom_agreement_at = DateTime.now if form.custom_agreement
+          @user.custom_agreement_at = Time.zone.now if form.custom_agreement
 
           # TODO: raise ActiveRecord::RecordInvalid because of quality setting on uploader, this line is a quick fix
-          @user.remote_avatar_url = form.avatar_url if form.avatar_url.present? && !form.avatar_url.end_with?('svg')
+          @user.remote_avatar_url = form.avatar_url if form.avatar_url.present? && !form.avatar_url.end_with?("svg")
           @user.skip_confirmation! if verified_email # unless verified_email != form.email
           @user.accept_invitation if @user.invited_to_sign_up?
           @after_confirmation = (verified_email != form.email)
         end
       end
 
-      @user.tos_agreement = '1'
+      @user.tos_agreement = "1"
       @user.save!
     end
   end

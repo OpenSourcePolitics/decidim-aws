@@ -8,7 +8,6 @@ module Decidim
     let(:admin) { create(:user, :admin, organization: organization) }
     let!(:initiative) { create(:initiative, organization: organization, state: :published) }
 
-
     let(:default_subject) { "A user has deleted his account." }
     let(:default_body) { "A user has deleted his account. We invite you to go and file his petitions." }
 

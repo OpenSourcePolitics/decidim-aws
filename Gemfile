@@ -34,7 +34,7 @@ gem "faker", "~> 1.9"
 gem "wicked_pdf"
 gem "wkhtmltopdf-binary"
 
-gem 'activerecord-session_store'
+gem "activerecord-session_store"
 
 gem "letter_opener_web", "~> 1.3"
 
@@ -43,7 +43,7 @@ gem "omniauth_openid_connect", "0.3.1"
 gem "openid_connect", "~> 1.3"
 # gem "omniauth-saml", "~> 1.10"
 
-gem 'rubyzip', require: 'zip'
+gem "rubyzip", require: "zip"
 
 group :development, :test do
   gem "byebug", "~> 11.0", platform: :mri
@@ -61,14 +61,14 @@ group :development do
 end
 
 group :production do
-  gem "sentry-ruby"
+  gem "dalli-elasticache"
+  gem "fog-aws"
+  gem "newrelic_rpm"
   gem "sentry-rails"
+  gem "sentry-ruby"
   gem "sentry-sidekiq"
   gem "sidekiq"
   gem "sidekiq-scheduler"
-  gem "fog-aws"
-  gem "dalli-elasticache"
-  gem "newrelic_rpm"
 end
 
 gem "dotenv-rails", "~> 2.7"

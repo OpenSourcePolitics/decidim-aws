@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "active_support/concern"
 require "valid_email2"
 
@@ -14,11 +15,11 @@ module OmniauthRegistrationFormExtend
 
     attribute :custom_agreement, Virtus::Attribute::Boolean
     jsonb_attribute :address, [
-        [:number_and_street, String],
-        [:address_complement, String],
-        [:postal_code, String],
-        [:city, String],
-        [:country, String]
+      [:number_and_street, String],
+      [:address_complement, String],
+      [:postal_code, String],
+      [:city, String],
+      [:country, String]
     ]
 
     validates :email, 'valid_email_2/email': { mx: true }
@@ -30,9 +31,9 @@ module OmniauthRegistrationFormExtend
     validates :email, :number_and_street,
               :postal_code,
               :city,
-              :country, presence: true, unless: -> (form) { form.email.blank? }
+              :country, presence: true, unless: ->(form) { form.email.blank? }
 
-    validate :email, :email_is_unique, unless: -> (form) { form.email.blank? }
+    validate :email, :email_is_unique, unless: ->(form) { form.email.blank? }
 
     validate :minimum_age, if: -> { manifest.dig(:minimum_age).present? && raw_data.dig(:extra, :raw_info, :birthdate).present? }
 
@@ -59,7 +60,7 @@ module OmniauthRegistrationFormExtend
 
       return if minimum_age.blank?
 
-      Time.zone.now -  minimum_age.years
+      Time.zone.now - minimum_age.years
     end
 
     def birth_date

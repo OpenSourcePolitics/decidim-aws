@@ -6,7 +6,6 @@ require "zlib"
 module OmniAuth
   module Strategies
     class FranceConnectUid < OmniAuth::Strategies::FranceConnect
-
       option :name, :france_connect_uid
       option :scope, [:openid, :birthdate]
 
