@@ -5,7 +5,6 @@ require "omniauth_openid_connect"
 module OmniAuth
   module Strategies
     class FranceConnect < OmniAuth::Strategies::OpenIDConnect
-
       option :name, :france_connect
       option :origin_param, "redirect_url"
 
@@ -30,7 +29,7 @@ module OmniAuth
       end
 
       def find_name
-        user_info.preferred_username.blank? ? user_info.family_name : user_info.preferred_username
+        user_info.preferred_username.presence || user_info.family_name
       end
 
       def authorize_uri
@@ -44,7 +43,7 @@ module OmniAuth
       end
 
       def end_session_uri
-        return unless client_options.end_session_endpoint.present?
+        return if client_options.end_session_endpoint.blank?
 
         end_session_uri = URI(options.issuer + client_options.end_session_endpoint)
         end_session_uri.query = URI.encode_www_form(
@@ -64,28 +63,26 @@ module OmniAuth
       def client_options
         site_url = URI(options.site)
 
-        _client_options = {
+        client_options = {
           host: site_url.host,
           port: site_url.port,
           identifier: options.client_id,
           secret: options.client_secret,
-          authorization_endpoint: '/api/v1/authorize',
-          token_endpoint: '/api/v1/token',
-          userinfo_endpoint: '/api/v1/userinfo',
-          jwks_uri: '/api/v1/jwk'
+          authorization_endpoint: "/api/v1/authorize",
+          token_endpoint: "/api/v1/token",
+          userinfo_endpoint: "/api/v1/userinfo",
+          jwks_uri: "/api/v1/jwk"
         }
 
-        if options.end_session_endpoint.present?
-          _client_options[:end_session_endpoint] = options.end_session_endpoint
-        end
+        client_options[:end_session_endpoint] = options.end_session_endpoint if options.end_session_endpoint.present?
 
-        options.client_options.merge _client_options
+        options.client_options.merge client_options
       end
 
       def redirect_uri
         return omniauth_callback_url unless params["redirect_uri"]
 
-        "#{ omniauth_callback_url }?redirect_uri=#{ CGI.escape(params["redirect_uri"]) }"
+        "#{omniauth_callback_url}?redirect_uri=#{CGI.escape(params["redirect_uri"])}"
       end
 
       def omniauth_callback_url
@@ -93,11 +90,11 @@ module OmniAuth
       end
 
       def new_state
-        session['omniauth.state'] = SecureRandom.hex(16)
+        session["omniauth.state"] = SecureRandom.hex(16)
       end
 
       def session_state
-        session['omniauth.state'] = params["state"] || SecureRandom.hex(16)
+        session["omniauth.state"] = params["state"] || SecureRandom.hex(16)
       end
 
       def other_phase

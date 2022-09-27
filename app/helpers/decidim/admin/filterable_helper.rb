@@ -119,10 +119,10 @@ module Decidim
 
       def remove_filter_icon_link(filter)
         icon_link_to(
-            "circle-x",
-            url_for(query_params_without(filter)),
-            t("decidim.admin.actions.cancel"),
-            class: "action-icon--remove"
+          "circle-x",
+          url_for(query_params_without(filter)),
+          t("decidim.admin.actions.cancel"),
+          class: "action-icon--remove"
         )
       end
 

@@ -15,44 +15,44 @@ module Decidim
       # Public: Exports a hash with the serialized data for this initiative.
       def serialize
         {
-            id: initiative.id,
-            reference: initiative.reference,
-            title: initiative.title,
-            description: initiative.description,
-            created_at: initiative.created_at,
-            published_at: initiative.published_at,
-            hashtag: initiative.hashtag,
-            type: {
-                id: initiative.type.try(:id),
-                name: initiative.type.try(:title) || empty_translatable
-            },
-            scope: {
-                id: initiative.scope.try(:id),
-                name: initiative.scope.try(:name) || empty_translatable
-            },
-            signatures: initiative.supports_count,
-            signature_type: initiative.signature_type,
-            signature_start_date: initiative.signature_start_date,
-            signature_end_date: initiative.signature_end_date,
-            state: initiative.state,
-            offline_votes: initiative.offline_votes,
-            answer: initiative.answer,
-            archive_category: archive_category_name,
-            attachments: {
-                attachment_collections: serialize_attachment_collections,
-                files: serialize_attachments
-            },
-            components: serialize_components,
-            authors: {
-                id: initiative.author_users.map(&:id),
-                name: initiative.author_users.map(&:name)
-            },
-            area: {
-                name: initiative.area&.name
-            },
-            firms: {
-                scopes: uniq_vote_scopes
-            }
+          id: initiative.id,
+          reference: initiative.reference,
+          title: initiative.title,
+          description: initiative.description,
+          created_at: initiative.created_at,
+          published_at: initiative.published_at,
+          hashtag: initiative.hashtag,
+          type: {
+            id: initiative.type.try(:id),
+            name: initiative.type.try(:title) || empty_translatable
+          },
+          scope: {
+            id: initiative.scope.try(:id),
+            name: initiative.scope.try(:name) || empty_translatable
+          },
+          signatures: initiative.supports_count,
+          signature_type: initiative.signature_type,
+          signature_start_date: initiative.signature_start_date,
+          signature_end_date: initiative.signature_end_date,
+          state: initiative.state,
+          offline_votes: initiative.offline_votes,
+          answer: initiative.answer,
+          archive_category: archive_category_name,
+          attachments: {
+            attachment_collections: serialize_attachment_collections,
+            files: serialize_attachments
+          },
+          components: serialize_components,
+          authors: {
+            id: initiative.author_users.map(&:id),
+            name: initiative.author_users.map(&:name)
+          },
+          area: {
+            name: initiative.area&.name
+          },
+          firms: {
+            scopes: uniq_vote_scopes
+          }
         }
       end
 
@@ -65,10 +65,10 @@ module Decidim
 
         initiative.attachment_collections.map do |collection|
           {
-              id: collection.try(:id),
-              name: collection.try(:name),
-              weight: collection.try(:weight),
-              description: collection.try(:description)
+            id: collection.try(:id),
+            name: collection.try(:name),
+            weight: collection.try(:weight),
+            description: collection.try(:description)
           }
         end
       end
@@ -78,16 +78,16 @@ module Decidim
 
         initiative.attachments.map do |attachment|
           {
-              id: attachment.try(:id),
-              title: attachment.try(:title),
-              weight: attachment.try(:weight),
-              description: attachment.try(:description),
-              attachment_collection: {
-                  name: attachment.attachment_collection.try(:name),
-                  weight: attachment.attachment_collection.try(:weight),
-                  description: attachment.attachment_collection.try(:description)
-              },
-              remote_file_url: Decidim::AttachmentPresenter.new(attachment).attachment_file_url
+            id: attachment.try(:id),
+            title: attachment.try(:title),
+            weight: attachment.try(:weight),
+            description: attachment.try(:description),
+            attachment_collection: {
+              name: attachment.attachment_collection.try(:name),
+              weight: attachment.attachment_collection.try(:weight),
+              description: attachment.attachment_collection.try(:description)
+            },
+            remote_file_url: Decidim::AttachmentPresenter.new(attachment).attachment_file_url
           }
         end
       end
@@ -118,7 +118,7 @@ module Decidim
       end
 
       def min_vote_scopes_to_calculate
-        500000
+        500_000
       end
     end
   end

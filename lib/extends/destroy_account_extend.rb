@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'active_support/concern'
+require "active_support/concern"
 
 module DestroyAccountExtend
   extend ActiveSupport::Concern

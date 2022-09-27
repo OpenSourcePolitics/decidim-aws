@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "active_support/concern"
 require "valid_email2"
 
@@ -11,11 +12,11 @@ module AccountFormExtend
     attribute :email_on_notification, Virtus::Attribute::Boolean
     attribute :custom_agreement, Virtus::Attribute::Boolean
     jsonb_attribute :address, [
-        [:number_and_street, String],
-        [:address_complement, String],
-        [:postal_code, String],
-        [:city, String],
-        [:country, String]
+      [:number_and_street, String],
+      [:address_complement, String],
+      [:postal_code, String],
+      [:city, String],
+      [:country, String]
     ]
 
     validates :email, 'valid_email_2/email': { mx: true }

@@ -1,0 +1,171 @@
+# i18n-tasks finds and manages missing and unused translations: https://github.com/glebm/i18n-tasks
+
+# The "main" locale.
+base_locale: en
+
+## Reporting locale, default: en. Available: en, ru.
+# internal_locale: en
+
+# Read and write translations.
+data:
+  ## Translations are read from the file system. Supported format: YAML, JSON.
+  ## Provide a custom adapter:
+  # adapter: I18n::Tasks::Data::FileSystem
+
+  # Locale files or `File.find` patterns where translations are read from:
+  read:
+    - config/locales/%{locale}.yml
+
+  # Locale files to write new keys to, based on a list of key pattern => file rules. Matched from top to bottom:
+  # `i18n-tasks normalize -p` will force move the keys according to these rules
+  write:
+    - config/locales/%{locale}.yml
+
+  ## Specify the router (see Readme for details). Valid values: conservative_router, pattern_router, or a custom class.
+  # router: convervative_router
+
+  yaml:
+    write:
+      # do not wrap lines at 80 characters
+      line_width: -1
+
+  ## Pretty-print JSON:
+  # json:
+  #   write:
+  #     indent: '  '
+  #     space: ' '
+  #     object_nl: "\n"
+  #     array_nl: "\n"
+
+# Find translate calls
+search:
+  ## Paths or `File.find` patterns to search in:
+  paths:
+    - app
+    - lib
+
+  # Root directories for relative keys resolution.
+  relative_roots:
+    - app/controllers
+    - app/helpers
+    - app/mailers
+    - app/presenters
+    - app/services
+    - app/views
+    - app/cells
+
+  ## Files or `File.fnmatch` patterns to exclude from search. Some files are always excluded regardless of this setting:
+  ##   %w(*.jpg *.png *.gif *.svg *.ico *.eot *.otf *.ttf *.woff *.woff2 *.pdf *.css *.sass *.scss *.less *.yml *.json)
+  exclude:
+    - "*.jpeg"
+    - "*.odt"
+    - "*.docx"
+
+  ## Alternatively, the only files or `File.fnmatch patterns` to search in `paths`:
+  ## If specified, this settings takes priority over `exclude`, but `exclude` still applies.
+  # only: ["*.rb", "*.html.slim"]
+
+  ## If `strict` is `false`, guess usages such as t("categories.#{category}.title"). The default is `true`.
+  strict: false
+
+  ## Multiple scanners can be used. Their results are merged.
+  ## The options specified above are passed down to each scanner. Per-scanner options can be specified as well.
+  ## See this example of a custom scanner: https://github.com/glebm/i18n-tasks/wiki/A-custom-scanner-example
+
+## Google Translate
+# translation:
+#   # Get an API key and set billing info at https://code.google.com/apis/console to use Google Translate
+#   api_key: "AbC-dEf5"
+
+translation:
+  deepl_api_key: <%= ENV["DEEPL_API_KEY"] %>
+
+# Do not consider these keys missing:
+ignore_missing:
+  - activemodel.attributes.initiative.signature_type_values.online
+  - activemodel.attributes.initiative.signature_type_values.offline
+  - activemodel.errors.models.initiative.attributes.add_documents.size
+  - faker.address.country_code
+  - decidim.initiatives.initiatives.show.*
+  - decidim.admin.actions.*
+  - decidim.admin.models.initiatives.fields.*
+  - decidim.admin.menu.initiatives
+  - decidim.admin.menu.initiatives_types
+  - decidim.initiatives.admin.answers.info_initiative.*
+  - decidim.initiatives.admin.initiatives.index.*
+  - decidim.initiatives.admin.initiatives.edit.*
+  - decidim.initiatives.admin.initiatives.form.title
+  - decidim.initiatives.actions.answer
+  - decidim.initiatives.application_helper.filter_state_values.*
+  - decidim.initiatives.application_helper.filter_scope_values.all
+  - decidim.initiatives.application_helper.filter_type_values.all
+  - decidim.initiatives.application_helper.filter_area_values.all
+  - decidim.initiatives.create_initiative.fill_data.*
+  - decidim.initiatives.create_initiative.finish.*
+  - decidim.initiatives.create_initiative.previous_form.*
+  - decidim.initiatives.create_initiative.promotal_committee.*
+  - decidim.initiatives.initiative_votes.create.success_html
+  - decidim.initiatives.initiative_signatures.finish.back_to_initiative
+  - decidim.initiatives.initiatives.filters.*
+  - decidim.initiatives.initiatives.index_header.new_initiative
+  - decidim.initiatives.initiatives_mailer.*
+  - layouts.decidim.initiative_creation_header.*
+  - layouts.decidim.initiative_signature_creation_header.finished
+  - layouts.decidim.initiative_header_steps.description
+  - decidim.initiatives.initiatives.votes_count.most_popular_initiative
+  - decidim.initiatives.initiatives.result.initiative_rejected_reason
+  - layouts.decidim.admin.initiative.information
+  - layouts.decidim.admin.initiative.committee_members
+  - decidim.initiatives.admin.initiatives.update.success
+  - decidim.initiatives.admin.initiatives.update.error
+  - decidim.admin.exports.notice
+
+# Consider these keys used:
+ignore_unused:
+  - activemodel.attributes.*
+  - activemodel.errors.models.initiative.attributes.add_documents.*
+  - activemodel.models.decidim/attachment_created_event
+  - forms.required_explanation
+  - faker.address.country_code
+  - devise.failure.*
+  - devise.omniauth_callbacks.success
+  - devise.registrations.destroyed
+  - devise.registrations.logout.success
+  - devise.mailer.email_changed.subject
+  - devise.mailer.confirmation_instructions.subject
+  - decidim.system.organizations.omniauth_settings.*
+  - decidim.shared.version_author.profile
+  - decidim.pages.index.title
+  - decidim.pages.terms_and_conditions.*
+  - decidim.initiatives.update.*
+  - decidim.event.initiatives.admin.support_threshold_reached.*
+  - decidim.devise.omniauth_registrations.new.custom_agreement
+  - decidim.authorization_handlers.admin.saml.*
+  - decidim.admin.models.attachment.name
+  - decidim.admin.models.attachment.fields.weight
+  - decidim.admin.menu.participatory_processes_submenu.*
+  - decidim.admin.attachments.update.*
+  - decidim.admin.attachments.new.*
+  - decidim.admin.attachments.index.attachments_title
+  - decidim.admin.attachments.edit.*
+  - decidim.admin.attachments.destroy.success
+  - decidim.admin.attachments.create.*
+  - decidim.application.documents.related_documents
+  - decidim.application.photos.related_photos
+  - decidim.account.destroy.*
+  - decidim.account.update.*
+  - decidim.account.show.custom_agreement
+  - decidim.account.show.change_address
+  - decidim.authorization_handlers.admin.france_connect_uid.*
+  - decidim.authorization_handlers.admin.france_connect_profile.*
+  - decidim.authorization_handlers.admin.decidim.help
+  - decidim.authorization_handlers.admin.france_connect.*
+  - decidim.initiatives.initiatives.share_buttons.share_link
+  - decidim.initiatives.initiatives.votes_count.goal_not_reached
+  - decidim.shared.floating_help.help
+  - decidim.states.accepted
+  - decidim.states.expired
+  - decidim.verifications.omniauth.authorizations.new.error
+  - decidim.verifications.omniauth.authorizations.new.success
+  - decidim.verifications.omniauth.errors
+  - decidim.verifications.omniauth.errors.anti_affinity
