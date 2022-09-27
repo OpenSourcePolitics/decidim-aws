@@ -132,10 +132,10 @@ en:
         request_data: Request data
     destroy_account_mailer:
       notify:
-        destroy_account_explanation: Destroy account explanation
+        destroy_account_explanation: A user has deleted his account. We invite you to go and file his petitions.
         destroy_account_html: Destroy account html
         hello: Hello
-        subject: Subject
+        subject: A user has deleted his account.
     devise:
       omniauth_registrations:
         new:
