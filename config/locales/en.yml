@@ -254,7 +254,7 @@ en:
     verifications:
       authorizations:
         index:
-          title: Liste des autorisations
+          title: Authorizations list
       metadata:
         content:
           active_email: '<b>Cet utilisateur peut être contacté aux coordonnées suivantes: <p><a href="mailto:%{email}">%{email}</a><br/>%{full_address}</p></b>'
@@ -317,7 +317,7 @@ en:
         profile: Profile
         sign_out: Sign out
       user_profile:
-        authorizations: Voir les autorisations associées à votre compte
+        authorizations: Authorizations
         back_to_account: Retour à votre compte
         my_data: My data
         title: Title
