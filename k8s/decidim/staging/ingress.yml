@@ -8,7 +8,7 @@ metadata:
     cert-manager.io/issuer: letsencrypt-prod
 spec:
   rules:
-  - host: ppan-int.opensourcepolitics.net
+  - host: petitions-an.osp.cat
     http:
       paths:
       - path: /
@@ -20,5 +20,5 @@ spec:
               number: 80
   tls:
   - hosts:
-    - pps-int.opensourcepolitics.net
+    - petitions-an.osp.cat
     secretName: decidim-an-ingress-secret-2
