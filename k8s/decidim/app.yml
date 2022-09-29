@@ -101,7 +101,7 @@ metadata:
 data:
   RAILS_ENV: production
   RAILS_SERVE_STATIC_FILES: "true"
-  APP_NAME: "decidim_sen"
+  APP_NAME: " decidim_an"
   WEB_CONCURRENCY: "0"
   RACK_ATTACK_ENABLED: "false"
   CACHE_ASSETS: "true"
