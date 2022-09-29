@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: decidim-sen-deployment
+  name: decidim-an-deployment
 spec:
   selector:
     matchLabels:
-      app: decidim-sen-app
+      app: decidim-an-app
   template:
     metadata:
       labels:
-        app: decidim-sen-app
+        app: decidim-an-app
     spec:
       tolerations:
       - key: "k8s.scaleway.com/dedicated"
@@ -25,7 +25,7 @@ spec:
                     - key: app
                       operator: In
                       values:
-                        - decidim-sen-app
+                        - decidim-an-app
                 topologyKey: topology.kubernetes.io/zone
       volumes:
         - name: nginx-conf
@@ -59,7 +59,7 @@ spec:
           failureThreshold: 3
           periodSeconds: 10
       - name: app
-        image: rg.fr-par.scw.cloud/decidim-sen/decidim-sen:latest
+        image: rg.fr-par.scw.cloud/decidim-an/decidim-an:latest
         imagePullPolicy: Always
         resources:
           requests:
@@ -75,17 +75,17 @@ spec:
                 fieldPath: status.podIP
         envFrom:
           - configMapRef:
-              name: decidim-sen-app-config
+              name: decidim-an-app-config
           - secretRef:
-              name: decidim-sen-app-secrets
+              name: decidim-an-app-secrets
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: decidim-sen-svc
+  name: decidim-an-svc
 spec:
   selector:
-    app: decidim-sen-app
+    app: decidim-an-app
   ports:
     - name: http
       protocol: TCP
@@ -95,9 +95,9 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: decidim-sen-app-config
+  name: decidim-an-app-config
   labels:
-    app: decidim-sen-app
+    app: decidim-an-app
 data:
   RAILS_ENV: production
   RAILS_SERVE_STATIC_FILES: "true"

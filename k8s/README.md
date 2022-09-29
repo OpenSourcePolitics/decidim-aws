@@ -127,8 +127,8 @@ kubectl -n default apply -f app-nginx-conf-cm.yml
 After changing a secret or a cm, you need to triggger a rollout:
 
 ```
-kubectl -n default rollout restart deploy decidim-sen-deployment
-kubectl -n default rollout restart deploy decidim-sen-sidekiq-deployment
+kubectl -n default rollout restart deploy decidim-an-deployment
+kubectl -n default rollout restart deploy decidim-an-sidekiq-deployment
 ```
 
 ### ToDo

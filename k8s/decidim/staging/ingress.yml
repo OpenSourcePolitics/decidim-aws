@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: decidim-sen-ingress
+  name: decidim-an-ingress
   annotations:
     kubernetes.io/ingress.class: "nginx"
     kubernetes.io/tls-acme: "true"
@@ -15,10 +15,10 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: decidim-sen-svc
+            name: decidim-an-svc
             port:
               number: 80
   tls:
   - hosts:
     - pps-int.opensourcepolitics.net
-    secretName: decidim-sen-ingress-secret-2
+    secretName: decidim-an-ingress-secret-2

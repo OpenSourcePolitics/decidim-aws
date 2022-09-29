@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: decidim-sen-sidekiq-deployment
+  name: decidim-an-sidekiq-deployment
 spec:
   selector:
     matchLabels:
-      app: decidim-sen-sidekiq
+      app: decidim-an-sidekiq
   replicas: 2
   template:
     metadata:
       labels:
-        app: decidim-sen-sidekiq
+        app: decidim-an-sidekiq
     spec:
       affinity:
         podAntiAffinity:
@@ -22,12 +22,12 @@ spec:
                     - key: app
                       operator: In
                       values:
-                        - decidim-sen-sidekiq
+                        - decidim-an-sidekiq
                 topologyKey: topology.kubernetes.io/zone
       terminationGracePeriodSeconds: 60 # put your longest Job time here plus security time.
       containers:
-      - name: decidim-sen-sidekiq
-        image: rg.fr-par.scw.cloud/decidim-sen/decidim-sen:latest
+      - name: decidim-an-sidekiq
+        image: rg.fr-par.scw.cloud/decidim-an/decidim-an:latest
         resources:
           requests:
             cpu: "100m"
@@ -62,6 +62,6 @@ spec:
                 fieldPath: status.podIP
         envFrom:
           - configMapRef:
-              name: decidim-sen-app-config
+              name: decidim-an-app-config
           - secretRef:
-              name: decidim-sen-app-secrets
+              name: decidim-an-app-secrets

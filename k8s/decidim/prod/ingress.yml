@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: decidim-sen-ingress
+  name: decidim-an-ingress
 spec:
   rules:
   - host: petitions-an.osp.cat
@@ -11,6 +11,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: decidim-sen-svc
+            name: decidim-an-svc
             port:
               number: 80
