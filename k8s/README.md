@@ -65,7 +65,7 @@ All the ressources are located in `decidim` folder.
 - add the label to this node pool: `security-group=postgres`
 - configure pg allowed IP to match the one from this node pool
 
-Create the secret with the following env vars:
+Create the secret named `pgbouncer` with the following env vars:
 ```
 PGBOUNCER_DATABASE
 POSTGRESQL_DATABASE
