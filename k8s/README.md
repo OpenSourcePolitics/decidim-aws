@@ -62,7 +62,7 @@ All the ressources are located in `decidim` folder.
 
 - deploy pg in managed db in scaleway
 - create a node pool for pg bouncer
-- add the label to this node pool: `security-group=postgres`
+- add the label to this node pool: `security-group=postgres-an`
 - configure pg allowed IP to match the one from this node pool
 
 Create the secret named `pgbouncer` with the following env vars:
