@@ -1,7 +1,7 @@
 REGISTRY := rg.fr-par.scw.cloud
-NAMESPACE := decidim-ppan
+NAMESPACE := decidim-an
 VERSION := latest
-IMAGE_NAME := decidim-ppan
+IMAGE_NAME := decidim-an
 TAG := $(REGISTRY)/$(NAMESPACE)/$(IMAGE_NAME):$(VERSION)
 
 login:
