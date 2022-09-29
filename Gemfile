@@ -26,7 +26,8 @@ gem "openid_connect", "~> 1.3"
 
 gem "ruby-progressbar"
 gem "rubyzip", require: "zip"
-gem "sentry-raven"
+gem "sentry-rails"
+gem "sentry-ruby"
 
 gem "dotenv-rails"
 gem "health_check"
