@@ -4,7 +4,7 @@ metadata:
   name: decidim-an-ingress
 spec:
   rules:
-  - host: petitions-an.osp.cat
+  - host: petitions-an.osp.dev
     http:
       paths:
       - path: /
