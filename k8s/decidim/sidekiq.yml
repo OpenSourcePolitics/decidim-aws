@@ -35,7 +35,7 @@ spec:
           limits:
             cpu: "2"
             memory: "1200Mi"
-        command: ["sidekiq", "-C", "config/sidekiq.yml"]
+        command: ["bundle", "exec", "sidekiq", "-C", "config/sidekiq.yml"]
         ports:
           - containerPort: 7433
         livenessProbe:

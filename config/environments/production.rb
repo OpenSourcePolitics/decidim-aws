@@ -34,14 +34,18 @@ Rails.application.configure do
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  # config.action_controller.asset_host = ENV.fetch("CLOUDFRONT_ENDPOINT", false)
+  config.action_controller.asset_host = ENV.fetch("CLOUDFRONT_ENDPOINT", false)
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
-  config.active_storage.service = :local
+  config.active_storage.service = if Rails.application.secrets.dig(:scaleway, :id).present?
+                                    :amazon
+                                  else
+                                    :local
+                                  end
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
@@ -53,13 +57,14 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :debug
+  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info").to_sym
+  config.lograge.ignore_actions = ["HealthCheck::HealthCheckController#index"]
 
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
 
   # Use a different cache store in production.
-  config.cache_store = :mem_cache_store
+  # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
@@ -91,6 +96,11 @@ Rails.application.configure do
     openssl_verify_mode: "none"
   }
 
+  config.action_mailer.default_options = {
+    "X-Mailjet-TrackOpen" => 0,
+    "X-Mailjet-TrackClick" => 0
+  }
+
   # Use a different logger for distributed setups.
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
@@ -106,5 +116,21 @@ Rails.application.configure do
 
   config.active_job.queue_adapter = :sidekiq
 
-  config.cache_store = :dalli_store, Dalli::ElastiCache.new(ENV["ELASTICACHE_HOST"]).servers, { expires_in: 1.day, compress: true } if ENV["RAILS_LOG_TO_STDOUT"].present?
+  config.cache_store = :redis_cache_store, {
+    url: ENV["REDIS_URL"],
+    namespace: "#{ENV["APP_NAME"]}-memory-store"
+  }
+
+  if ENV["CACHE_ASSETS"].present?
+    config.public_file_server.headers = {
+      "Cache-Control" => "public, s-maxage=31536000, max-age=15552000",
+      "Expires" => 1.year.from_now.to_formatted_s(:rfc822).to_s
+    }
+  end
+
+  config.ssl_options = {
+    redirect: {
+      exclude: ->(request) { /health_check|sidekiq_alive/.match?(request.path) }
+    }
+  }
 end
