@@ -17,6 +17,12 @@ flux install
 
 ### Setup Infra in cluster:
 
+Create secret for monitoring:
+
+```
+kubectl create secret generic monitoring -n flux-system --from-literal=grafana_host=none --from-literal=grafana_password=`openssl rand -base64 14`
+```
+
 Common folder is for staging and prod.
 Apply common.yml:
 
