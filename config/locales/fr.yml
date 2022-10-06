@@ -40,6 +40,10 @@ fr:
         unconfirmed_email: l'adresse <code>%{email}</code> est en cours de validation.<br/> Un courriel vous a été transmis à cette adresse contenant un lien nous permettant de confirmer son existence.
         update_account: Update account
     admin:
+      actions:
+        export-selection: Exporter la sélection
+        export: Exporter
+        export-all: Tout exporter
       attachments:
         create:
           error: Une erreur s'est produite lors de la création d'un nouvelle pièce jointe.
