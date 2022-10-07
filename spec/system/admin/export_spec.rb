@@ -60,6 +60,17 @@ describe "Admin exports initiatives", type: :system do
   end
 
   context "when initiatives are filtered" do
+    context "when we have no result for the filter" do
+      before do
+        visit decidim_admin_initiatives.initiatives_path
+        apply_filter("State", "Classified")
+      end
+
+      it "shows only the export all dropdown" do
+        expect(page).to have_content("EXPORT ALL")
+        expect(page).to have_no_content("EXPORT SELECTION")
+      end
+    end
     context "when accessing initiatives list" do
       it "shows the export dropdown" do
         visit decidim_admin_initiatives.initiatives_path
