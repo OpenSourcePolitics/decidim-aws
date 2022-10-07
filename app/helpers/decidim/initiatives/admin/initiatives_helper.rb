@@ -9,7 +9,7 @@ module Decidim
         end
 
         def export_dropdowns(query)
-          return export_dr opdown if query.conditions.empty? || @initiatives.length.zero?
+          return export_dropdown if query.conditions.empty? || @initiatives.length.zero?
 
           export_dropdown.concat(export_dropdown(query.result.map(&:id)))
         end
