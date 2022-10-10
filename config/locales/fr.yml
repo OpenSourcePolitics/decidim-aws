@@ -41,7 +41,7 @@ fr:
         update_account: Update account
     admin:
       exports:
-        export_as: Exporter en tant que
+        export_as: Exporter en tant que %{export_format}
       actions:
         export-selection: Exporter la sélection
         export: Exporter

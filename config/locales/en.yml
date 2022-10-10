@@ -70,7 +70,7 @@ en:
             weight: Ordre de présentation de la pièce jointe
           name: Pièce jointe
       exports:
-        export_as: Export as
+        export_as: Export as %{export_format}
       organization_appearance:
         form:
           colors_title: Colors title
