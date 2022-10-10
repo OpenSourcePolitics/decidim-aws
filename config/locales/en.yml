@@ -41,9 +41,9 @@ en:
         update_account: Update account
     admin:
       actions:
-        export-all: Export All
-        export-selection: Export selection
         export: Export
+        export-selection: Export selection
+        export_all: Export All
       attachments:
         create:
           error: Une erreur s'est produite lors de la création d'un nouvelle pièce jointe.
@@ -61,6 +61,8 @@ en:
         update:
           error: Une erreur s'est produite lors de la mise à jour de cette pièce jointe.
           success: Pièce jointe mise à jour avec succès.
+      exports:
+        export_as: Export as %{export_format}
       menu:
         participatory_processes_submenu:
           attachments: Pièce(s) jointe(s)
@@ -69,8 +71,6 @@ en:
           fields:
             weight: Ordre de présentation de la pièce jointe
           name: Pièce jointe
-      exports:
-        export_as: Export as
       organization_appearance:
         form:
           colors_title: Colors title
@@ -330,4 +330,3 @@ en:
   locale:
     name: Name
   manage: Manage
-

@@ -40,8 +40,6 @@ describe "Admin exports initiatives", type: :system do
     it "shows the export formats" do
       find("span", text: "EXPORT ALL").click
 
-      # Check the content of the dropdown
-
       expect(page).to have_content("AS CSV")
       expect(page).to have_content("AS JSON")
     end
@@ -71,6 +69,7 @@ describe "Admin exports initiatives", type: :system do
         expect(page).to have_no_content("EXPORT SELECTION")
       end
     end
+
     context "when accessing initiatives list" do
       it "shows the export dropdown" do
         visit decidim_admin_initiatives.initiatives_path
