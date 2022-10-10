@@ -40,11 +40,9 @@ fr:
         unconfirmed_email: l'adresse <code>%{email}</code> est en cours de validation.<br/> Un courriel vous a été transmis à cette adresse contenant un lien nous permettant de confirmer son existence.
         update_account: Update account
     admin:
-      exports:
-        export_as: Exporter en tant que %{export_format}
       actions:
-        export-selection: Exporter la sélection
         export: Exporter
+        export-selection: Exporter la sélection
         export_all: Tout exporter
       attachments:
         create:
@@ -63,6 +61,8 @@ fr:
         update:
           error: Une erreur s'est produite lors de la mise à jour de cette pièce jointe.
           success: Pièce jointe mise à jour avec succès.
+      exports:
+        export_as: Exporter en tant que %{export_format}
       menu:
         participatory_processes_submenu:
           attachments: Pièce(s) jointe(s)
