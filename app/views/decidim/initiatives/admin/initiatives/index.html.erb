@@ -3,22 +3,10 @@
     <h2 class="card-title">
       <%= t "decidim.admin.titles.initiatives" %> <span class="card-title__counter">(<%= @initiatives.count %>)</span>
 
-      <% if @has_params == nil && params[:q].blank? %>
-      <% @has_params = false %>
-      <% end %>
-
       <% if @initiatives || params[:q].present? %>
         <div class="button--title">
         <% if allowed_to? :export, :initiatives %>
           <%= export_dropdowns(query) %>
-            <% if params[:q].blank? && !@has_params %>
-              <% @has_params = true %>
-            <% end %>
-        <% end %>
-        <% if params[:q].blank? && @has_params %>
-          <% if allowed_to? :export, :initiatives %>
-            <%= export_dropdowns(query) %>
-          <% end %>
         <% end %>
         </div>
       <% end %>

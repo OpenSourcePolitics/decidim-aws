@@ -9,13 +9,15 @@ module Decidim
         end
 
         def export_dropdowns(query)
-          return export_dropdown if query.conditions.empty? || @initiatives.length.zero?
+          return export_dropdown if @initiatives.length.zero?
 
-          export_dropdown.concat(export_dropdown(query.result.map(&:id)))
+          export_dropdown.concat(
+            export_dropdown(query.result.map(&:id))
+          )
         end
 
         def dropdown_id(collection_ids)
-          return "export-dropdown" if collection_ids.blank? && !@has_params
+          return "export-dropdown" if collection_ids.blank?
 
           "export-selection-dropdown"
         end
