@@ -51,3 +51,4 @@ db/migrate-bkp*
 flamegraph*
 
 public/reports
+.rspec-failures
