@@ -45,7 +45,7 @@ fr:
       actions:
         export-selection: Exporter la sélection
         export: Exporter
-        export-all: Tout exporter
+        export_all: Tout exporter
       attachments:
         create:
           error: Une erreur s'est produite lors de la création d'un nouvelle pièce jointe.
