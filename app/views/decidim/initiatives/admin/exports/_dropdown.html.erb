@@ -1,0 +1,24 @@
+<span class="exports dropdown tiny button button--simple" data-toggle="<%= dropdown_id(collection_ids) %>">
+  <% if collection_ids.present? %>
+    <%= t("actions.export-selection", scope: "decidim.admin") %>
+    <% else %>
+        <%= t("actions.export_all", scope: "decidim.admin") %>
+    <% end %>
+</span>
+<div class="dropdown-pane"
+     id="<%= dropdown_id(collection_ids) %>"
+     data-dropdown
+     data-position=bottom
+     data-alignment=right
+     data-auto-focus="true"
+     data-close-on-click="true">
+  <ul class="vertical menu add-components">
+    <% %w{CSV JSON}.each do |format| %>
+      <li class="exports--format--<%= format.downcase %> exports--initiatives">
+        <%= link_to t("decidim.admin.exports.export_as", name: t("decidim.initiatives.admin.exports.initiatives"),
+                      export_format: format.upcase),
+                    export_initiatives_path(format: format, collection_ids: collection_ids) %>
+      </li>
+    <% end %>
+  </ul>
+</div>
