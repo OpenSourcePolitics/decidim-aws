@@ -41,7 +41,6 @@ fr:
         update_account: Update account
     admin:
       actions:
-        export: Exporter
         export-selection: Exporter la sélection
         export_all: Tout exporter
       attachments:

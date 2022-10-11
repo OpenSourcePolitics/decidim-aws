@@ -119,6 +119,7 @@ ignore_missing:
   - decidim.initiatives.admin.initiatives.update.success
   - decidim.initiatives.admin.initiatives.update.error
   - decidim.admin.exports.notice
+  - decidim.initiatives.admin.exports.initiatives
 
 # Consider these keys used:
 ignore_unused:
