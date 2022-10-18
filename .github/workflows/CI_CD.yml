@@ -5,7 +5,7 @@ on: [push]
 env:
   CI: "true"
   SIMPLECOV: "true"
-  RUBY_VERSION: 2.6.0
+  RUBY_VERSION: 2.6.5
 
 jobs:
   tests:
@@ -153,12 +153,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build image
-        run: |
-          docker build . --compress --tag ${{ secrets.PRODUCTION_TAG }}
       - name: Login to registry
         run: |
           docker login ${{ secrets.REGISTRY }} -u userdoesnotmatter -p ${{ secrets.TOKEN }}
+      - name: Duplicating previous image and renaming it
+        run: |
+          docker pull ${{ secrets.PRODUCTION_TAG }}
+          docker tag ${{ secrets.PRODUCTION_TAG }} ${{ secrets.PREVIOUS_PRODUCTION_TAG }}
+          docker push ${{ secrets.PREVIOUS_PRODUCTION_TAG }}
+      - name: Build image
+        run: |
+          docker build . --compress --tag ${{ secrets.PRODUCTION_TAG }}
       - name: Push Image
         run: |
           docker push ${{ secrets.PRODUCTION_TAG }}
