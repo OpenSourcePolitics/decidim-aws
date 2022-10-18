@@ -17,7 +17,7 @@ if Rails.env.production?
   ActiveSupport::Notifications.subscribe("throttle.rack_attack") do |name, start, finish, request_id, payload|
     # request object available in payload[:request]
 
-    rack_logger = Logger.new(Rails.root.join("log/rack_attack.log"))
+    rack_logger = Logger.new(Rails.root.join("log", "rack_attack.log"))
 
     request = payload[:request]
 
