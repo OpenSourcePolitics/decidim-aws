@@ -146,10 +146,18 @@ jobs:
         run: npm ci
       - run: bundle exec rubocop -P
         name: Lint Ruby files
+  test_build:
+    needs: [tests, tests_system, lint]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Test build
+        run: |
+          ./.github/test_build.rb
   build:
     # TODO: Remove this once we have merged on master
     if: "github.ref == 'refs/heads/feature/kubernetes'"
-    needs: [tests, tests_system, lint]
+    needs: [test_build]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -167,3 +175,16 @@ jobs:
       - name: Push Image
         run: |
           docker push ${{ secrets.PRODUCTION_TAG }}
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install kubectl
+        run: |
+          curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+          chmod +x ./kubectl
+          sudo mv ./kubectl /usr/local/bin/kubectl
+      - name: Deploy
+        run: |
+          ./.github/deploy.rb
