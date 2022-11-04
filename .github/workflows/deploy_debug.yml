@@ -21,4 +21,5 @@ jobs:
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
         run: |
+          echo $KUBECONFIG
           ./.github/deploy.rb
