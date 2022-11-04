@@ -1,7 +1,10 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+puts "Starting rollout..."
 rollout = `kubectl rollout restart deployment`
+puts rollout
+
 status = `kubectl rollout status deployment`
 
 if status.split("\n").select { |s| s.include?("successfully rolled out") }.count == rollout.split("\n").count
