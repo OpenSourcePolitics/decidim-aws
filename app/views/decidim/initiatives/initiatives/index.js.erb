@@ -1,0 +1,17 @@
+var $initiatives = $('#initiatives');
+var $initiativesCount = $('#initiatives-count');
+var $orderFilterInput = $('.order_filter');
+
+$initiatives.html('<%= j(render partial: "decidim/initiatives/initiatives/initiatives") %>');
+$initiativesCount.html('<%= j(render partial: "decidim/initiatives/initiatives/count") %>');
+$orderFilterInput.val('<%= order %>');
+
+// Update initiative threshold when page is reloaded asynchronously
+// Function will be called every time initiatives are reloaded :
+// - Filtering
+// - Sorting initiatives
+// Define in : app/assets/javascripts/decidim/initiatives/threshold.js
+updateThreshold();
+
+var $dropdownMenu = $('.dropdown.menu', $initiatives);
+$dropdownMenu.foundation();

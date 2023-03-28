@@ -1,5 +1,10 @@
 document.addEventListener("DOMContentLoaded",function() {
+  updateThreshold();
+});
 
+
+// When page contains initiatives, update each progress bar for initiatives which have reached first threshold (100 000)
+function updateThreshold() {
   if (window.location.pathname.startsWith("/initiatives")) {
     var seuil_1_str = "100 000";
     var seuil_2_str = "500&nbsp000";
@@ -22,5 +27,4 @@ document.addEventListener("DOMContentLoaded",function() {
       }
     });
   }
-
-});
+}
