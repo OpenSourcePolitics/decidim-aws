@@ -15,22 +15,6 @@
         </div>
       </div>
 
-      <% if request.env['PATH_INFO'].include?("/cookies") %>
-
-        <div class="columns small-12">
-          <div class="card">
-            <div class="card__content">
-              <iframe
-                style="border: 0; height: auto; width: 100%;"
-                src="https://matomo.opensourcepolitics.eu/index.php?module=CoreAdminHome&action=optOut&language=fr&backgroundColor=&fontColor=3d393c&fontSize=15px&fontFamily=%22Roboto%20Slab%22%2C%20%22Roboto%22%2C%20%22Source%20Sans%20Pro%22%2C%20Helvetica%2C%20Arial%2C%20sans-serif"
-              ></iframe>
-            </div>
-          </div>
-        </div>
-
-      <% end %>
-
-
       <%= cell "decidim/tos_page", :sticky_form %>
     </main>
   </div>

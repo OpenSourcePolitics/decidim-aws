@@ -303,10 +303,6 @@ en:
     required_explanation: "* Les champs obligatoires sont marqués d'un astérisque"
   layouts:
     decidim:
-      cookie_warning:
-        description_html: Description html
-        link_label: Link label
-        ok: Ok
       footer:
         made_with_open_source: Made with open source
         official_url: site de l'assemblée nationale
