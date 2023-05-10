@@ -17,6 +17,12 @@ flux install
 
 ### Setup Infra in cluster:
 
+Create secret for monitoring:
+
+```
+kubectl create secret generic monitoring -n flux-system --from-literal=grafana_host=none --from-literal=grafana_password=`openssl rand -base64 14`
+```
+
 Common folder is for staging and prod.
 Apply common.yml:
 
@@ -95,11 +101,12 @@ flux -n default resume hr redis
 You need to create a secret with the following env vars:
 
 ```
-DATABASE_HOST
-DATABASE_NAME
-DATABASE_PASSWORD
-DATABASE_PORT
-DATABASE_USERNAME
+PREPARED_STATEMENTS
+RDS_HOSTNAME
+RDS_DB_NAME
+RDS_PASSWORD
+RDS_PORT
+RDS_USERNAME
 FRANCE_CONNECT_PROFILE_IDENTIFIER
 FRANCE_CONNECT_PROFILE_SECRET
 FRANCE_CONNECT_UID_IDENTIFIER
