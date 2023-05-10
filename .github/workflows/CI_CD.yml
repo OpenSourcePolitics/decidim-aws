@@ -8,7 +8,6 @@ env:
   RUBY_VERSION: 2.6.5
   RAILS_ENV: test
   NODE_VERSION: 16.9.1
-  RUBYOPT: '-W:no-deprecated'
 
 jobs:
   lint:
@@ -41,10 +40,9 @@ jobs:
         env:
           POSTGRES_PASSWORD: postgres
     env:
-      RDS_USERNAME: postgres
-      RDS_PASSWORD: postgres
-      RDS_HOST: localhost
-      RAILS_ENV: test
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_HOST: localhost
       # Set locales available for i18n tasks
       ENFORCED_LOCALES: "en,fr"
     steps:
@@ -71,10 +69,9 @@ jobs:
         env:
           POSTGRES_PASSWORD: postgres
     env:
-      RDS_USERNAME: postgres
-      RDS_PASSWORD: postgres
-      RDS_HOST: localhost
-      RAILS_ENV: test
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_HOST: localhost
       # Set locales available for i18n tasks
       ENFORCED_LOCALES: "en,fr"
     steps:
@@ -101,9 +98,9 @@ jobs:
         env:
           POSTGRES_PASSWORD: postgres
     env:
-      RDS_USERNAME: postgres
-      RDS_PASSWORD: postgres
-      RDS_HOST: host.docker.internal
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_HOST: host.docker.internal
     steps:
       - uses: OpenSourcePolitics/build-and-test-images-action@master
         with:
@@ -118,7 +115,7 @@ jobs:
   build_and_push_image_dev:
     name: Build and push image to Registry
     if: "github.ref == 'refs/heads/develop'"
-    needs: [ lint, tests, test_build ]
+    needs: [ lint, tests, system_tests, test_build ]
     runs-on: ubuntu-latest
     steps:
       - uses: OpenSourcePolitics/build-and-push-images-action@master
@@ -130,7 +127,7 @@ jobs:
           tag: "develop-${{ github.sha }}"
   generate_release:
     name: Generate release
-    needs: [ lint, tests, test_build ]
+    needs: [ lint, tests, system_tests, test_build ]
     if: "github.ref == 'refs/heads/master'"
     runs-on: ubuntu-latest
     steps:
