@@ -112,29 +112,25 @@ jobs:
           database_username: ${{ env.DATABASE_USERNAME }}
           database_password: ${{ env.DATABASE_PASSWORD }}
           database_host: ${{ env.DATABASE_HOST }}
-  build_and_push_image_dev:
-    name: Build and push image to Registry
-    if: "github.ref == 'refs/heads/develop'"
+  build:
+    if: "github.ref == 'refs/heads/feature/kubernetes'"
+    # TODO: Migrate to proper branch
+    # TODO: Update workflow to use the new build-and-test-images-action. See https://github.com/OpenSourcePolitics/decidim-app/blob/develop/.github/workflows/ci_cd.yml
     needs: [ lint, tests, system_tests, test_build ]
     runs-on: ubuntu-latest
     steps:
-      - uses: OpenSourcePolitics/build-and-push-images-action@master
-        with:
-          registry: ${{ vars.REGISTRY_ENDPOINT }}
-          namespace: ${{ vars.REGISTRY_NAMESPACE }}
-          password: ${{ secrets.TOKEN }}
-          image_name: ${{ vars.IMAGE_NAME }}
-          tag: "develop-${{ github.sha }}"
-  generate_release:
-    name: Generate release
-    needs: [ lint, tests, system_tests, test_build ]
-    if: "github.ref == 'refs/heads/master'"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: OpenSourcePolitics/build-and-push-images-action@master
-        with:
-          registry: ${{ vars.REGISTRY_ENDPOINT }}
-          namespace: ${{ vars.REGISTRY_NAMESPACE }}
-          password: ${{ secrets.TOKEN }}
-          image_name: ${{ vars.IMAGE_NAME }}
-          tag: latest
+      - uses: actions/checkout@v2
+      - name: Login to registry
+        run: |
+          docker login ${{ vars.REGISTRY_ENDPOINT }} -u userdoesnotmatter -p ${{ secrets.TOKEN }}
+      - name: Duplicating previous image and renaming it
+        run: |
+          docker pull "${{ vars.REGISTRY_ENDPOINT }}/${{ vars.REGISTRY_NAMESPACE }}/${{ vars.IMAGE_NAME }}:latest"
+          docker tag "${{ vars.REGISTRY_ENDPOINT }}/${{ vars.REGISTRY_NAMESPACE }}/${{ vars.IMAGE_NAME }}:oldest"
+          docker push "${{ vars.REGISTRY_ENDPOINT }}/${{ vars.REGISTRY_NAMESPACE }}/${{ vars.IMAGE_NAME }}:oldest"
+      - name: Build image
+        run: |
+          docker build . --compress --tag "${{ vars.REGISTRY_ENDPOINT }}/${{ vars.REGISTRY_NAMESPACE }}/${{ vars.IMAGE_NAME }}:latest"
+      - name: Push Image
+        run: |
+          docker push "${{ vars.REGISTRY_ENDPOINT }}/${{ vars.REGISTRY_NAMESPACE }}/${{ vars.IMAGE_NAME }}:latest"
