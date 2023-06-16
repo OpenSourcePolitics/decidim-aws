@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: decidim-an-migration-job
+spec:
+  ttlSecondsAfterFinished: 120
+  template:
+    spec:
+      containers:
+        - name: decidim-an-migration-job
+          image: rg.fr-par.scw.cloud/decidim-an/decidim-an:latest
+          command: ["bundle",  "exec", "rails", "db:migrate"]
+          envFrom:
+            - configMapRef:
+                name: decidim-an-app-config
+            - secretRef:
+                name: decidim-an-app-secrets
+      restartPolicy: Never

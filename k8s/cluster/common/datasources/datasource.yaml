@@ -1,0 +1,9 @@
+apiVersion: 1
+datasources:
+- name: Logs
+  type: loki
+  uid: loki
+  url: http://loki-stack:3100/
+  access: proxy
+  isDefault: false
+  version: 1

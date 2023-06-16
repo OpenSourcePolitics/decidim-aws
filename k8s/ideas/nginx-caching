@@ -1,0 +1,22 @@
+      location ~ ^/initiatives/.*$ {
+        proxy_cache_bypass $http_pragma;
+        proxy_no_cache $http_pragma;
+        proxy_cache_valid 200 301 302 1m;
+        if ($http_pragma = "") {
+          expires 1m;
+          add_header Cache-Control public,immutable;
+
+        }
+        proxy_pass http://backend;
+      }
+
+      location / {
+        proxy_cache_bypass $http_pragma;
+        proxy_no_cache $http_pragma;
+        proxy_cache_valid 200 301 302 5m;
+        if ($http_pragma = "") {
+          expires 5m;
+          add_header Cache-Control public,immutable;
+        }
+        proxy_pass http://backend;
+      }

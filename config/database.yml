@@ -22,11 +22,11 @@ default: &default
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: <%= ENV.fetch("RDS_HOSTNAME") { "localhost" } %>
-  port: <%= ENV.fetch("RDS_PORT") { "5432" } %>
-  username: <%= ENV.fetch("RDS_USERNAME") { "" } %>
-  password: <%= ENV.fetch("RDS_PASSWORD") { "" } %>
-  database: <%= ENV.fetch("RDS_DB_NAME") { "osp_app" } %>
+  host: <%= ENV.fetch("DATABASE_HOST") { "localhost" } %>
+  port: <%= ENV.fetch("DATABASE_PORT") { "5432" } %>
+  username: <%= ENV.fetch("DATABASE_USERNAME") { "" } %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD") { "" } %>
+  database: <%= ENV.fetch("DATABASE_NAME") { "osp_app" } %>
   prepared_statements: <%= ENV.fetch("PREPARED_STATEMENTS") { true } %>
 
 development:

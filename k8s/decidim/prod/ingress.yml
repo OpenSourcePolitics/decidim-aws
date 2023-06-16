@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: decidim-an-ingress
+spec:
+  rules:
+  - host: petitions-an.osp.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: decidim-an-svc
+            port:
+              number: 80
